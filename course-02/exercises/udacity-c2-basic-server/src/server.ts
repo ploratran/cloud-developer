@@ -68,32 +68,26 @@ import { Car, cars as cars_list } from './cars';
                 .send(`Welcome to the Cloud, ${name}!`);
   } );
 
+  app.get('/cars/all', (req: Request, res: Response) => {
+    return res.status(200).send(cars); 
+  });
+
   // @TODO Add an endpoint to GET a list of cars
   // it should be filterable by make with a query paramater
-  app.get('/cars', (req: Request, res: Response) => {
+  app.get('/cars/', (req: Request, res: Response) => {
 
     let { make } = req.query; 
-    console.log(cars);
 
     // find car with matching make:
     let car = cars.filter(car => car.make == make);
 
-    if (!make) {
-      return res.status(400).send('make is required');
-    }
-
-    // if there are no car with matching make
-    // send error message: 
-    else if (car.length === 0) {
-      return res.status(404).send('No matching car found with given make');
-    }
-
-    // if there are car(s) with matching make:
-    // send car info: 
-    else {
+    // if there is a matched car
+    // send info of the matched car: 
+    if (make) {
       return res.status(200).send(car);
     }
 
+    return res.status(200).send(cars);
   }); 
 
   // @TODO Add an endpoint to get a specific car
