@@ -41,9 +41,9 @@ describe('divide', () => {
 
 describe('concat', () => {
 
-  // it('should take two string parameters', () => {
-
-  // });
+  it('should take two string parameters', () => {
+    expect(concat('hello', 'world')).arguments.length; 
+  });
 
   it('should return one string combining the two strings', () => {
     const result = concat('hello', 'mimi');
