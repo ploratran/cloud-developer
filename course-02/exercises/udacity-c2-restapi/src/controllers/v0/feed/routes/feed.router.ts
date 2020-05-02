@@ -8,6 +8,7 @@ const router: Router = Router();
 // Get all feed items
 router.get('/', async (req: Request, res: Response) => {
     const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
+
     items.rows.map((item) => {
             if(item.url) {
                 item.url = AWS.getGetSignedUrl(item.url);
@@ -18,6 +19,19 @@ router.get('/', async (req: Request, res: Response) => {
 
 //@TODO
 //Add an endpoint to GET a specific resource by Primary Key
+router.get('/:id', async (req: Request, res: Response) => {
+    let { id } = req.params;
+
+    console.log(id); 
+    if (id === null ) {
+        res.status(404).send(`id is required!`); 
+    }
+
+    const item = await FeedItem.findOne({ where: { id: id } }); 
+    console.log(item); 
+
+    res.status(201).send(item); 
+}); 
 
 // update a specific resource
 router.patch('/:id', 
@@ -61,7 +75,7 @@ router.post('/',
             url: fileName
     });
 
-    const saved_item = await item.save();
+    const saved_item: FeedItem = await item.save();
 
     saved_item.url = AWS.getGetSignedUrl(saved_item.url);
     res.status(201).send(saved_item);
