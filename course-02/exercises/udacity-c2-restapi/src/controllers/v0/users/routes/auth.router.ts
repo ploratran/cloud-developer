@@ -8,9 +8,9 @@ import { NextFunction } from 'connect';
 
 import * as EmailValidator from 'email-validator';
 
+import { config } from '../../../../config/config';
+
 const router: Router = Router();
-
-
 
 // async function generatePassword(plainTextPassword: string): Promise<string> {
 async function generatePassword(plainTextPassword: string): Promise<any> {
@@ -19,18 +19,24 @@ async function generatePassword(plainTextPassword: string): Promise<any> {
     // define round
     // MUST be inside this function
     const saltRounds = 10;
+
+    const salt = await bcrypt.genSalt(saltRounds);
+
+    const hash = await bcrypt.hash(plainTextPassword, salt);
+
+    return hash;
      
-    await bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(plainTextPassword, salt, (err, hash) => {
-            if (err) {
-                return;
-            }
-            else {
-                console.log(hash); 
-                return hash;
-            }
-        });
-    });
+    // await bcrypt.genSalt(saltRounds, (err, salt) => {
+    //     bcrypt.hash(plainTextPassword, salt, (err, hash) => {
+    //         if (err) {
+    //             return;
+    //         }
+    //         else {
+    //             console.log(hash); 
+    //             return hash;
+    //         }
+    //     });
+    // });
 }
 
 // async function comparePasswords(plainTextPassword: string, hash: string): Promise<boolean> {
@@ -48,8 +54,10 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 }
 
 // function generateJWT(user: User): string {
+// generate JWT token, assign it to a user object and return that JWT token
 function generateJWT(user: User): any {
     //@TODO Use jwt to create a new JWT Payload containing
+    return jwt.sign(user, config.jwt.secret);
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -66,7 +74,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     
     // const token = token_bearer[1];
 
-    // return jwt.verify(token, "hello", (err, decoded) => {
+    // return jwt.verify(token, config.jwt.secret, (err, decoded) => {
     //   if (err) {
     //     return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
     //   }
@@ -108,6 +116,8 @@ router.post('/login', async (req: Request, res: Response) => {
 
     // Generate JWT
     const jwt = generateJWT(user);
+
+    console.log('jwt ' + jwt);
 
     res.status(200).send({ auth: true, token: jwt, user: user.short()});
 });
