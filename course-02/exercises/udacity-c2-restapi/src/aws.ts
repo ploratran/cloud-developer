@@ -32,6 +32,7 @@ export function getGetSignedUrl( key: string ): string{
     Expires: signedUrlExpireSeconds,
   }
 
+  // Request a signed url to download resource: 
   const url: string = s3.getSignedUrl('getObject', params);
 
   return url;
@@ -53,6 +54,7 @@ export function getPutSignedUrl( key: string ){
     Expires: signedUrlExpireSeconds,
   }
 
+  // Request a signed url to upload resource: 
   const url = s3.getSignedUrl('putObject', params);
 
   return url;
