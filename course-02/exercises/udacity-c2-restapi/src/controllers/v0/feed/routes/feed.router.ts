@@ -8,10 +8,10 @@ const router: Router = Router();
 // Get all feed items
 router.get('/', async (req: Request, res: Response, err) => {
 
-    const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
+    const items = await FeedItem.findAndCountAll({ order: [['id', 'DESC']] });
 
     items.rows.map((item) => {
-            if(item.url) {
+            if (item.url) {
                 item.url = AWS.getGetSignedUrl(item.url);
             }
     });
@@ -23,7 +23,6 @@ router.get('/', async (req: Request, res: Response, err) => {
 router.get('/:id', async (req: Request, res: Response) => {
     let { id } = req.params;
 
-    console.log(id); 
     if (id === null ) {
         res.status(401).send(`id is required!`); 
     }
@@ -55,9 +54,7 @@ router.patch('/:id',
 });
 
 // Get a signed url to put a new item in the bucket
-router.get('/signed-url/:fileName', 
-    requireAuth, 
-    async (req: Request, res: Response) => {
+router.get('/signed-url/:fileName', requireAuth, async (req: Request, res: Response) => {
     let { fileName } = req.params;
     const url = AWS.getPutSignedUrl(fileName);
     res.status(201).send({url: url});
@@ -66,9 +63,7 @@ router.get('/signed-url/:fileName',
 // Post meta data and the filename after a file is uploaded 
 // NOTE the file name is the key name in the s3 bucket.
 // body : {caption: string, fileName: string};
-router.post('/', 
-    requireAuth, 
-    async (req: Request, res: Response) => {
+router.post('/', requireAuth, async (req: Request, res: Response) => {
     const caption = req.body.caption;
     const fileName = req.body.url;
 
@@ -90,6 +85,7 @@ router.post('/',
     const saved_item: FeedItem = await item.save();
 
     saved_item.url = AWS.getPutSignedUrl(saved_item.url);
+
     res.status(201).send(saved_item);
 });
 

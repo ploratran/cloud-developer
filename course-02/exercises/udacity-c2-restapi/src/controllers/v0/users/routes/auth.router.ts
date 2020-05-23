@@ -153,7 +153,7 @@ router.post('/', async (req: Request, res: Response) => {
         password_hash: password_hash
     });
 
-    let savedUser;
+    let savedUser: User;
     try {
         savedUser = await newUser.save();
     } catch (e) {
