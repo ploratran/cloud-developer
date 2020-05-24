@@ -10,8 +10,9 @@ router.get('/', async (req: Request, res: Response, err) => {
 
     const items = await FeedItem.findAndCountAll({ order: [['id', 'DESC']] });
 
-    items.rows.map((item) => {
+    items.rows.map(item => {
             if (item.url) {
+                console.log("print " + item.url);
                 item.url = AWS.getGetSignedUrl(item.url);
             }
     });
@@ -33,30 +34,38 @@ router.get('/:id', async (req: Request, res: Response) => {
 }); 
 
 // update a specific resource
-router.patch('/:id', 
-    requireAuth, 
-    async (req: Request, res: Response) => {
-        //@TODO try it yourself
-        let { id } = req.params; 
+router.patch('/:id', requireAuth, async (req: Request, res: Response) => {
+    //@TODO try it yourself
 
-        return  await FeedItem.update({ caption: 'updating... ' }, { where: { id, } })
-                        .then(updated => {
-                            console.log('update success');
-                            res.redirect('http://localhost:8080/api/v0/feed/' + id);
-                        })
-                        .catch(err => { 
-                            console.log('update unsuccess');
-                            res.status(500);
-                        })
+    // let { id } = req.params;
+    // let { newCaption } = req.body.caption; 
+    // let { newUrl } = req.body.url;
 
+    // if (!id) {
+    //     return res.status(400).send({message: 'id is required'});
+    // }
+    // if (!newCaption) {
+    //     return res.status(400).send({message: 'Caption is required or malformed'});
+    // }
+    // // check Filename is valid
+    // if (!newUrl) {
+    //     return res.status(400).send({message: 'File url is required'});
+    // }
+    // const item: FeedItem = await FeedItem.findByPk(id);
+    // item.url = newUrl;
+    // item.caption = newCaption;
 
-        // res.send(500).send("not implemented")
+    // item.update({url: newUrl, caption: newCaption}).then(() => {
+    //     console.log('Updated');
+    // });
 });
 
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', requireAuth, async (req: Request, res: Response) => {
     let { fileName } = req.params;
+
     const url = AWS.getPutSignedUrl(fileName);
+
     res.status(201).send({url: url});
 });
 
@@ -82,9 +91,10 @@ router.post('/', requireAuth, async (req: Request, res: Response) => {
             url: fileName
     });
 
-    const saved_item: FeedItem = await item.save();
+    const saved_item = await item.save();
 
-    saved_item.url = AWS.getPutSignedUrl(saved_item.url);
+    // get the S3 URL:
+    saved_item.url = AWS.getGetSignedUrl(saved_item.url);
 
     res.status(201).send(saved_item);
 });
