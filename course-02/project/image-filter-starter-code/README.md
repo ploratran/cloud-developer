@@ -1,11 +1,11 @@
 # Plora Tran Udagram Submission: 
 
-- **EB URL:** (http://udagram-project2-dev.us-east-2.elasticbeanstalk.com/)
+- **EB URL:** http://udagram-project2-dev.us-east-2.elasticbeanstalk.com/
 
 
 - **EB endpoint URL:** http://udagram-project2-dev.us-east-2.elasticbeanstalk.com/filteredimage?image_url=https://www.industrios.com/images/news/original/ABC%20Colored%20Bubble%20Letters.jpg
 
-- Screenshot EB Deployment: 
+- **Screenshot EB Deployment:**
 
 - ![Screenshot](./deployment_screenshots/plora_submission.png)
 
