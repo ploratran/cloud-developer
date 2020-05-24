@@ -25,31 +25,11 @@ async function generatePassword(plainTextPassword: string): Promise<string> {
     const hash = await bcrypt.hash(plainTextPassword, salt);
 
     return hash;
-     
-    // await bcrypt.genSalt(saltRounds, (err, salt) => {
-    //     bcrypt.hash(plainTextPassword, salt, (err, hash) => {
-    //         if (err) {
-    //             return;
-    //         }
-    //         else {
-    //             console.log(hash); 
-    //             return hash;
-    //         }
-    //     });
-    // });
 }
 
 // async function comparePasswords(plainTextPassword: string, hash: string): Promise<boolean> {
 async function comparePasswords(plainTextPassword: string, hash: string): Promise<boolean> {
     //@TODO Use Bcrypt to Compare your password to your Salted Hashed Password
-    // await bcrypt.compare(plainTextPassword, hash, (err, result) => {
-    //     if (plainTextPassword === hash) {
-    //         return result == true; 
-    //     } else {
-    //         return result == false;
-    //     }
-    // });
-
     return await bcrypt.compare(plainTextPassword, hash);
 }
 
@@ -64,7 +44,6 @@ function generateJWT(user: User): string {
 // authenticate JWT token
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
     //return next();
-    console.log('req headers ' + Object.values(req.headers));
     if (!req.headers || !req.headers.authorization){
         return res.status(401).send({ message: 'No authorization headers.' });
     }
@@ -121,8 +100,6 @@ router.post('/login', async (req: Request, res: Response) => {
 
     // Generate JWT
     const jwt = generateJWT(user);
-
-    console.log('jwt ' + jwt);
 
     res.status(200).send({ auth: true, token: jwt, user: user.short()});
 });
