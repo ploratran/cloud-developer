@@ -13,6 +13,7 @@ router.get('/', async (req: Request, res: Response, err) => {
     items.rows.map(item => {
             if (item.url) {
                 console.log("print " + item.url);
+                // url is the requested signed url from S3 to download the resource:  
                 item.url = AWS.getGetSignedUrl(item.url);
             }
     });
@@ -24,11 +25,11 @@ router.get('/', async (req: Request, res: Response, err) => {
 router.get('/:id', async (req: Request, res: Response) => {
     let { id } = req.params;
 
-    if (id === null ) {
-        res.status(401).send(`id is required!`); 
+    if (!id) {
+        return res.status(400).send({ message: 'Id is required' });
     }
 
-    const item = await FeedItem.findOne({ where: { id: id } }); 
+    const item = await FeedItem.findByPk(id); 
 
     res.status(201).send(item); 
 }); 
@@ -36,43 +37,24 @@ router.get('/:id', async (req: Request, res: Response) => {
 // update a specific resource
 router.patch('/:id', requireAuth, async (req: Request, res: Response) => {
     //@TODO try it yourself
-
-    // let { id } = req.params;
-    // let { newCaption } = req.body.caption; 
-    // let { newUrl } = req.body.url;
-
-    // if (!id) {
-    //     return res.status(400).send({message: 'id is required'});
-    // }
-    // if (!newCaption) {
-    //     return res.status(400).send({message: 'Caption is required or malformed'});
-    // }
-    // // check Filename is valid
-    // if (!newUrl) {
-    //     return res.status(400).send({message: 'File url is required'});
-    // }
-    // const item: FeedItem = await FeedItem.findByPk(id);
-    // item.url = newUrl;
-    // item.caption = newCaption;
-
-    // item.update({url: newUrl, caption: newCaption}).then(() => {
-    //     console.log('Updated');
-    // });
 });
 
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', requireAuth, async (req: Request, res: Response) => {
     let { fileName } = req.params;
 
+    // get the URL given back by S3: 
     const url = AWS.getPutSignedUrl(fileName);
 
+    // send back the URL given back by S3: 
     res.status(201).send({url: url});
 });
 
 // Post meta data and the filename after a file is uploaded 
 // NOTE the file name is the key name in the s3 bucket.
-// body : {caption: string, fileName: string};
 router.post('/', requireAuth, async (req: Request, res: Response) => {
+
+    // body : {caption: string, fileName: string};
     const caption: string = req.body.caption;
     const fileName: string = req.body.url;
 
@@ -91,9 +73,10 @@ router.post('/', requireAuth, async (req: Request, res: Response) => {
             url: fileName
     });
 
+    // save the new item into FeedItem database: 
     const saved_item = await item.save();
 
-    // get the S3 URL:
+    // save the requested url from S3 into FeedItem database: 
     saved_item.url = AWS.getGetSignedUrl(saved_item.url);
 
     res.status(201).send(saved_item);
