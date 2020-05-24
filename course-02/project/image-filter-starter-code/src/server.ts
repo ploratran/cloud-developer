@@ -47,9 +47,9 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       res.status(200).sendFile(filteredImgPath, (err) => {
         // deletes any files on the server on finish of the response
         // INPUTS files: Array<string> an array of absolute paths to files
+        if (err) { console.log(err); }
         deleteLocalFiles([filteredImgPath]);
       });
-
     } catch (err) {
       // one error code for caught errors (i.e. 422)
       return res.status(404).send('Error ' + err); 
