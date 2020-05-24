@@ -29,6 +29,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   /**************************************************************************** */
 
   //! END @TODO1
+    
 
   app.get("/filteredimage", async (req: Request, res: Response) => {
     let { image_url } = req.query; 
@@ -51,7 +52,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
     } catch (err) {
       // one error code for caught errors (i.e. 422)
-      return res.status(422).send('Error ' + err); 
+      return res.status(404).send('Error ' + err); 
     }
   }); 
   
