@@ -12,7 +12,6 @@ router.get('/', async (req: Request, res: Response, err) => {
 
     items.rows.map(item => {
             if (item.url) {
-                console.log("print " + item.url);
                 // url is the requested signed url from S3 to download the resource:  
                 item.url = AWS.getGetSignedUrl(item.url);
             }
@@ -71,7 +70,7 @@ router.get('/signed-url/:fileName', requireAuth, async (req: Request, res: Respo
     const url = AWS.getPutSignedUrl(fileName);
 
     // send back the URL given back by S3: 
-    res.status(201).send({url: url});
+    res.status(200).send({url: url}); // should send back 200 status code
 });
 
 // Post meta data and the filename after a file is uploaded 
