@@ -26,17 +26,41 @@ router.get('/:id', async (req: Request, res: Response) => {
     let { id } = req.params;
 
     if (!id) {
-        return res.status(400).send({ message: 'Id is required' });
+        return res.status(400).send({message: 'Id is required'});
     }
 
-    const item = await FeedItem.findByPk(id); 
+    const item = await FeedItem.findByPk(id);
 
-    res.status(201).send(item); 
+    res.status(200).send(item); // expect status code 200
 }); 
 
 // update a specific resource
 router.patch('/:id', requireAuth, async (req: Request, res: Response) => {
     //@TODO try it yourself
+    let { id } = req.params.id; 
+
+    // body : {caption: string, fileName: string};
+    let caption: string = req.body.caption;
+    let fileName: string = req.body.url;
+
+    // find specific id in FeedItem database:
+    const item: FeedItem = await FeedItem.findByPk(id);
+
+
+    // check if caption exist: 
+    if (caption != null || undefined) {
+        item.caption = caption;
+    }
+
+    // check if url exist: 
+    if (fileName != null || undefined) {
+        item.url = fileName; 
+    }
+
+    // save the updated item back into FeedItem database: 
+    const updatedItem = await item.save();
+
+    res.status(200).send(updatedItem);
 });
 
 // Get a signed url to put a new item in the bucket
