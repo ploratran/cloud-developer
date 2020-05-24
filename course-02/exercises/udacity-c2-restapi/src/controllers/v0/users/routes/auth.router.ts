@@ -56,7 +56,9 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 // generate JWT token, assign it to a user object and return that JWT token
 function generateJWT(user: User): string {
     //@TODO Use jwt to create a new JWT Payload containing
-    return jwt.sign(user, config.jwt.secret);
+
+    // use toJSON() to fix 422 error: 
+    return jwt.sign(user.toJSON(), config.jwt.secret);
 }
 
 // authenticate JWT token
