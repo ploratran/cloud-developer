@@ -5,6 +5,8 @@
 
 - **EB endpoint URL:** http://udagram-project2-dev.us-east-2.elasticbeanstalk.com/filteredimage?image_url=https://www.industrios.com/images/news/original/ABC%20Colored%20Bubble%20Letters.jpg
 
+- **Github URL**: https://github.com/ploratran/cloud-developer/tree/master/course-02/project/image-filter-starter-code
+
 - **Screenshot EB Deployment:**
 
 - ![Screenshot](./deployment_screenshots/plora_submission.png)
