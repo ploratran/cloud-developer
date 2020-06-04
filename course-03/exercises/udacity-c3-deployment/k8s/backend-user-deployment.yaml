@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Deployment
 metadata:
   labels:
@@ -12,7 +12,7 @@ spec:
         service: backend-user
     spec:
       containers:
-      - image: scheele/udacity-restapi-user
+      - image: ploratran/udacity-restapi-user
         name: backend-user 
         imagePullPolicy: Always  
         resources:

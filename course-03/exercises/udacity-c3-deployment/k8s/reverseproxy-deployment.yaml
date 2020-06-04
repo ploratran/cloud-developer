@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Deployment
 metadata:
   labels:
@@ -12,7 +12,7 @@ spec:
         service: reverseproxy
     spec:
       containers:
-      - image: scheele/reverseproxy
+      - image: ploratran/reverseproxy
         name: reverseproxy
         imagePullPolicy: Always          
         resources:

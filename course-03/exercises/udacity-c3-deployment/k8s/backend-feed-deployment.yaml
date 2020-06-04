@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Deployment
 metadata:
   labels:
@@ -12,7 +12,7 @@ spec:
         service: backend-feed
     spec:
       containers:
-      - image: scheele/udacity-restapi-feed
+      - image: ploratran/udacity-restapi-feed
         name: backend-feed
         imagePullPolicy: Always  
         resources:
