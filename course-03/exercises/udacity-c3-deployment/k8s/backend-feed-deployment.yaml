@@ -2,14 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: backend-feed
+    app: backend-feed
   name: backend-feed
 spec:
   replicas: 3
+  selector: 
+    matchLabels: 
+      app: backend-feed
   template:
     metadata:
       labels:
-        service: backend-feed
+        app: backend-feed
     spec:
       containers:
       - image: ploratran/udacity-restapi-feed
@@ -28,7 +31,7 @@ spec:
             configMapKeyRef:
               name: env-config
               key: URL
-        - name: AWS_BUCKET
+        - name: AWS_S3_BUCKET
           valueFrom:
             configMapKeyRef:
               name: env-config
@@ -43,7 +46,7 @@ spec:
             configMapKeyRef:
               name: env-config
               key: AWS_REGION
-        - name: JWT_SECRET
+        - name: JWT_SECRET_KEY
           valueFrom:
             configMapKeyRef:
               name: env-config

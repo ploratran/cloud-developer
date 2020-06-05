@@ -19,7 +19,7 @@ services:
       AWS_PROFILE: $AWS_PROFILE 
       AWS_BUCKET: $AWS_S3_BUCKET
       JWT_SECRET: $JWT_SECRET_KEY
-      URL: "http://localhost:8080"
+      URL: "http://localhost:8100"
   backend-feed:
     image: ploratran/udacity-restapi-feed
     volumes:

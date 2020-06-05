@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 data:
-  AWS_BUCKET: ___INSERT_AWS_BUCKET___
-  AWS_PROFILE: ___INSERT_AWS_PROFILE___
-  AWS_REGION: ___INSERT_AWS_REGION___
-  JWT_SECRET_KEY: ___INSERT_JWT_SECRET___
-  POSTGRESS_DATABASE: ___INSERT_POSTGRESS_DB___
-  POSTGRESS_HOST: ___INSERT_POSTGRESS_HOST___
+  AWS_BUCKET: udagram-plora-s3
+  AWS_PROFILE: default
+  AWS_REGION: us-east-2
+  JWT_SECRET_KEY: werdfdfgryh
+  POSTGRESS_DATABASE: udagramploradev
+  POSTGRESS_HOST: udacityploradb.c4mzfucs0jq6.us-east-2.rds.amazonaws.com
   URL: http://localhost:8100  
 metadata:
   name: env-config

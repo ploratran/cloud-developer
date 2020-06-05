@@ -2,14 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: backend-user
+    app: backend-user
   name: backend-user
 spec:
   replicas: 2
+  selector: 
+    matchLabels: 
+      app: backend-user
   template:
     metadata:
       labels:
-        service: backend-user
+        app: backend-user
     spec:
       containers:
       - image: ploratran/udacity-restapi-user
@@ -28,7 +31,7 @@ spec:
             configMapKeyRef:
               name: env-config
               key: URL 
-        - name: JWT_SECRET
+        - name: JWT_SECRET_KEY
           valueFrom:
             configMapKeyRef:
               name: env-config
