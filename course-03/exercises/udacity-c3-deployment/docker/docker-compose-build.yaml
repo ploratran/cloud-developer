@@ -3,7 +3,7 @@ services:
   reverseproxy:
     build:
       context: .
-    image: ploratran/reverseproxy 
+    image: ploratran/udagram-reverse-proxy 
   backend_user:
     build:
       context: ../../udacity-c3-restapi-user

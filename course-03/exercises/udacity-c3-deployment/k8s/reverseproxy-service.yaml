@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: reverseproxy
-  name: reverseproxy
+    service: udagram-reverse-proxy
+  name: udagram-reverse-proxy
 spec:
   ports:
   - name: "8080"
     port: 8080
     targetPort: 8080
   selector:
-    service: reverseproxy
+    service: udagram-reverse-proxy
 #  type: LoadBalancer    
