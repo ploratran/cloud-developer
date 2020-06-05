@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 
 import { User } from '../models/User';
 import { AuthRouter, requireAuth } from './auth.router';
+import { any } from 'bluebird';
 
 const router: Router = Router();
 
@@ -13,7 +14,10 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
     let { id } = req.params;
     const item = await User.findByPk(id);
-    res.send(item);
+    if(!item){
+        return res.status(404).send("Invalid user");
+    }
+    res.status(200).send(item);
 });
 
 export const UserRouter: Router = router;
