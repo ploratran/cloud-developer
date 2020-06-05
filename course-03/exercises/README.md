@@ -3,17 +3,23 @@
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
-1. [The Simple Frontend](/udacity-c3-frontend)
+1. [The Simple Frontend](./udacity-c3-frontend)
 A basic Ionic client web application which consumes the RestAPI Backend. 
-2. [The RestAPI Feed Backend](/udacity-c3-restapi-feed), a Node-Express feed microservice.
-3. [The RestAPI User Backend](/udacity-c3-restapi-user), a Node-Express user microservice.
+- **Frontend:** port 8100. 
+- **Command:** `npm run start` or `ionic serve`
+2. [The RestAPI Feed Backend](./udacity-c3-restapi-feed), a Node-Express feed microservice.
+- **Feed Backend:** port 8080
+- **Command:** `npm run dev` or `npm run prod` 
+3. [The RestAPI User Backend](./udacity-c3-restapi-user), a Node-Express user microservice.
+- **User Backend:** port 8080
+- **Command:** `npm run dev` or `npm run prod` 
 
 ## Getting Setup
 
 > _tip_: this frontend is designed to work with the RestAPI backends). It is recommended you stand up the backend first, test using Postman, and then the frontend should integrate.
 
 ### Installing Node and NPM
-This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (NPM is included) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
+This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (NPM is included) from [https://nodejs.com/en/download](https://node js.org/en/download/).
 
 ### Installing Ionic Cli
 The Ionic Command Line Interface is required to serve and build the frontend. Instructions for installing the CLI can be found in the [Ionic Framework Docs](https://ionicframework.com/docs/installation/cli).
@@ -35,7 +41,7 @@ You'll need to create a new node server. Open a new terminal within the project 
 
 
 ### Configure The Backend Endpoint
-Ionic uses enviornment files located in `./src/enviornments/enviornment.*.ts` to load configuration variables at runtime. By default `environment.ts` is used for development and `enviornment.prod.ts` is used for produciton. The `apiHost` variable should be set to your server url either locally or in the cloud.
+Ionic uses enviornment files located in `./src/environments/environment.*.ts` to load configuration variables at runtime. By default `environment.ts` is used for development and `environnment.prod.ts` is used for produciton. The `apiHost` variable should be set to your server url either locally or in the cloud.
 
 ***
 ### Running the Development Server
