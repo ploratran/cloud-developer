@@ -1,4 +1,4 @@
-apiVersion: extensions/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -32,7 +32,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: env-config
-              key: AWS_BUCKET
+              key: AWS_S3_BUCKET
         - name: AWS_PROFILE
           valueFrom:
             configMapKeyRef:
@@ -47,12 +47,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: env-config
-              key: JWT_SECRET
-        - name: POSTGRESS_DB
+              key: JWT_SECRET_KEY
+        - name: POSTGRESS_DATABASE
           valueFrom:
             configMapKeyRef:
               name: env-config
-              key: POSTGRESS_DB
+              key: POSTGRESS_DATABASE
         - name: POSTGRESS_HOST
           valueFrom:
             configMapKeyRef:
