@@ -1,5 +1,5 @@
 # Plora Tran Project 4 Submission
-Follow through this link for [Project 4](https://github.com/ploratran/udagram-microservices/tree/dev)
+Follow through this link for [Project 4](https://github.com/ploratran/udagram-microservices)
 
 # Udagram Image Filtering Microservice
 
