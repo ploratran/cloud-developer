@@ -1,140 +1,113 @@
-'use strict'
+'use strict'; 
 
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk'); 
 
-const docClient = new AWS.DynamoDB.DocumentClient()
+const docClient = new AWS.DynamoDB.DocumentClient(); 
 
-const groupsTable = process.env.GROUPS_TABLE
+const groupsTable = process.env.GROUPS_TABLE; 
 
 exports.handler = async (event) => {
-  console.log('Processing event: ', event)
-
-  // TODO: Read and parse "limit" and "nextKey" parameters from query parameters
-  // let nextKey // Next key to continue scan operation if necessary
-  let nextKey; 
-  // let limit // Maximum number of elements to return
-  let limit; 
-
-  // HINT: You might find the following method useful to get an incoming parameter value
-  // getQueryParameter(event, 'param')
-
-  // TODO: Return 400 error if parameters are invalid
-  try {
-    limit = parseLimitParameter(event); 
-    nextKey = parseNextKeyParameter(event); 
-  } catch (e) {
-    console.log('Error try to parse query paramemters');
-    return {
-      statusCode: 400, 
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }, 
-      body: JSON.stringify({error: 'Invalid parameters'})
-    } 
-  }
-
-  // Scan operation parameters
-  const scanParams = {
-    TableName: groupsTable,
-    // TODO: Set correct pagination parameters
-    Limit: limit,
-    ExclusiveStartKey: nextKey
-  }
-  console.log('Scan params: ', scanParams)
-
-  const result = await docClient.scan(scanParams).promise()
-
-  const items = result.Items
-
-  console.log('Result: ', result)
-
-  // Return result
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    body: JSON.stringify({
-      items,
-      // Encode the JSON object so a client can return it in a URL as is
-      nextKey: encodeNextKey(result.LastEvaluatedKey)
-    })
-  }
-}
+    
+    // define params limit and nextKey; 
+    let limit, nextKey; 
+    
+    // get limit and nextKey params from event using helper functions
+    // check if error return 400 statusCode
+    try {
+        limit = getLimitParameter(event) || 2; // set default limit as 2
+        nextKey = getNextKeyParameter(event); 
+    } catch (e) {
+        return {
+            statusCode: 400, 
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }, 
+            body: JSON.stringify({msg: 'Invalid parameters'})
+        }
+    };
+    
+    // get items from Groups table in DynamoDB: 
+    const result = await docClient.scan({
+        TableName: groupsTable, 
+        Limit: limit, 
+        ExclusiveStartKey: nextKey 
+    }).promise(); 
+    
+    const items = result.Items; 
+     
+    // return result to client: 
+    const response = {
+        statusCode: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }, 
+        body: JSON.stringify({ 
+            items, 
+            nextKey: encodeLastEvaluatedKey(result.LastEvaluatedKey), 
+        })
+    };
+    
+    return response;
+};
 
 // HELPER FUNCTIONS //
 
-/*
-@params {String} event.queryStringParameters.limit 
-parseInt() event.queryStringParameters.limit into number
-check if limitString is undefined or not
-return {Number} limit
-*/
-function parseLimitParameter(event) {
-  const limitStr = getQueryParameter(event, 'limit'); 
-  if (!limitStr) {
-    return undefined; 
-  }
+// get query string parameters from HTTP event object based on name param:
+const getQueryParameters = (event, name) => {
+    const eventQuery = event.queryStringParameters; 
+    
+    // check queryStringParameters if undefined: 
+    if (!eventQuery) { return undefined; }
+    
+    return eventQuery[name]; 
+}; 
 
-  // parse String to Int
-  const limit = parseInt(limitStr, 10);
-  
-  // check for positive number 
-  if (limit <= 0) {
-    throw new Error('Limit should be positive'); 
-  }
+// get limit string query parameter: 
+const getLimitParameter = event => {
+    // get limit string from HTTP event object from query parameter 
+    const limitStr = getQueryParameters(event, 'limit'); 
+    
+     // check queryStringParameters if undefined: 
+    if (!limitStr) {
+        return undefined; 
+    }
+    
+    const limit = parseInt(limitStr, 10); // base 10
+    
+    // check if limit is negative => throw error
+    if (limit <= 0) {
+        throw new Error('Limit should be positive');
+    }
+    
+    return limit; 
+}; 
 
-  return limit; 
+// get nextKey string parameter from HTTP event object: 
+const getNextKeyParameter = event => {
+    // get nextKey string from HTTP event object from query parameter
+    const nextKeyStr = getQueryParameters(event, 'nextKey'); 
+    if (!nextKeyStr) {
+        return undefined; 
+    }
+    
+    // decode nextKey string and parse JSON string in order to pass into GET request
+    // @return {String}
+    console.log('NextKey ' + JSON.parse(decodeURIComponent(nextKeyStr))); 
+    return JSON.parse(decodeURIComponent(nextKeyStr)); 
 }
 
-/*
-@params {String} event.queryStringParameters.nextKey
-check if nextKey is undefined or not
-*/
-function parseNextKeyParameter(event) {
-  const nextKeyStr = getQueryParameter(event, 'nextKey');  
-  if (!nextKeyStr) {
-    return undefined; 
-  }
-
-  // to pass a value coming in a GET request you would need to 
-  // first decode a string and then parse a JSON string
-  // "exclusiveStartKey" can be passed a parameter to a "scan()" call
-const exclusiveStartKey = JSON.parse(decodeURIComponent(nextKeyStr));
-return exclusiveStartKey; 
-}
-
-/**
- * Get a query parameter or return "undefined"
- *
- * @param {Object} event HTTP event passed to a Lambda function
- * @param {string} name a name of a query parameter to return
- *
- * @returns {string} a value of a query parameter value or "undefined" if a parameter is not defined
- */
-function getQueryParameter(event, name) {
-  const queryParams = event.queryStringParameters
-  // Check if queryStringParameters is undefined: 
-  if (!queryParams) {
-    return undefined
-  }
-
-  return queryParams[name]
-}
-
-/**
- * Encode last evaluated key using
- *
- * @param {Object} lastEvaluatedKey a JS object that represents last evaluated key
- *
- * @return {string} URI encoded last evaluated key
- */
-function encodeNextKey(lastEvaluatedKey) {
+// LastEvaluatedKey is a object from DynamoDB
+// convert the LastEvaluatedKey from a JSON object to a string
+// then encode it to URI in order to pass it in a URL
+const encodeLastEvaluatedKey = lastEvaluatedKey => {
+  // 
   if (!lastEvaluatedKey) {
-    return null
-  }
-
-  // the value of the LastEvaluatedKey in a DynamoDB result is a JSON object
-  // convert it to a string and then use URI encoding to allow to pass it in a URL:
-  return encodeURIComponent(JSON.stringify(lastEvaluatedKey))
-}
+      // if null, means no more items to return: 
+      return null; 
+  } 
+   
+  // return a string as a URI encoded of LastEvaluatedKey
+  // @return {String} 
+  console.log('lastEvaluatedKey ' + encodeURIComponent(JSON.stringify(lastEvaluatedKey))); 
+  return encodeURIComponent(JSON.stringify(lastEvaluatedKey)); 
+}; 
