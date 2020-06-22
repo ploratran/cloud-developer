@@ -97,7 +97,7 @@ function parseNextKeyParameter(event) {
     return undefined; 
   }
 
-  // pass a value coming in a GET request you would need to 
+  // to pass a value coming in a GET request you would need to 
   // first decode a string and then parse a JSON string
   // "exclusiveStartKey" can be passed a parameter to a "scan()" call
 const exclusiveStartKey = JSON.parse(decodeURIComponent(nextKeyStr));
@@ -134,5 +134,7 @@ function encodeNextKey(lastEvaluatedKey) {
     return null
   }
 
+  // the value of the LastEvaluatedKey in a DynamoDB result is a JSON object
+  // convert it to a string and then use URI encoding to allow to pass it in a URL:
   return encodeURIComponent(JSON.stringify(lastEvaluatedKey))
 }
