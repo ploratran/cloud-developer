@@ -11,19 +11,34 @@ exports.handler = async (event) => {
 
   // TODO: Read and parse "limit" and "nextKey" parameters from query parameters
   // let nextKey // Next key to continue scan operation if necessary
+  let nextKey; 
   // let limit // Maximum number of elements to return
+  let limit; 
 
   // HINT: You might find the following method useful to get an incoming parameter value
   // getQueryParameter(event, 'param')
 
   // TODO: Return 400 error if parameters are invalid
+  try {
+    limit = parseLimitParameter(event); 
+    nextKey = parseNextKeyParameter(event); 
+  } catch (e) {
+    console.log('Error try to parse query paramemters');
+    return {
+      statusCode: 400, 
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }, 
+      body: JSON.stringify({error: 'Invalid parameters'})
+    } 
+  }
 
   // Scan operation parameters
   const scanParams = {
     TableName: groupsTable,
     // TODO: Set correct pagination parameters
-    // Limit: ???,
-    // ExclusiveStartKey: ???
+    Limit: limit,
+    ExclusiveStartKey: nextKey
   }
   console.log('Scan params: ', scanParams)
 
@@ -47,6 +62,48 @@ exports.handler = async (event) => {
   }
 }
 
+// HELPER FUNCTIONS //
+
+/*
+@params {String} event.queryStringParameters.limit 
+parseInt() event.queryStringParameters.limit into number
+check if limitString is undefined or not
+return {Number} limit
+*/
+function parseLimitParameter(event) {
+  const limitStr = getQueryParameter(event, 'limit'); 
+  if (!limitStr) {
+    return undefined; 
+  }
+
+  // parse String to Int
+  const limit = parseInt(limitStr, 10);
+  
+  // check for positive number 
+  if (limit <= 0) {
+    throw new Error('Limit should be positive'); 
+  }
+
+  return limit; 
+}
+
+/*
+@params {String} event.queryStringParameters.nextKey
+check if nextKey is undefined or not
+*/
+function parseNextKeyParameter(event) {
+  const nextKeyStr = getQueryParameter(event, 'nextKey');  
+  if (!nextKeyStr) {
+    return undefined; 
+  }
+
+  // pass a value coming in a GET request you would need to 
+  // first decode a string and then parse a JSON string
+  // "exclusiveStartKey" can be passed a parameter to a "scan()" call
+const exclusiveStartKey = JSON.parse(decodeURIComponent(nextKeyStr));
+return exclusiveStartKey; 
+}
+
 /**
  * Get a query parameter or return "undefined"
  *
@@ -57,6 +114,7 @@ exports.handler = async (event) => {
  */
 function getQueryParameter(event, name) {
   const queryParams = event.queryStringParameters
+  // Check if queryStringParameters is undefined: 
   if (!queryParams) {
     return undefined
   }
