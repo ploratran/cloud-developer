@@ -26,6 +26,43 @@ exports.handler = async (event) => {
   }
 
   const totalTime = endTime - startTime; 
+
+  // TODO: Record if a response was successful or not
+  await cloudwatch.putMetricData({
+    MetricData: [
+      {
+        MetricName: 'Success',
+        Dimensions: [
+          {
+            Name: 'ServiceName',
+            Value: serviceName
+          }
+        ],
+        Unit: 'Count',
+        Value: requestWasSuccessful ? 1 : 0
+      }
+    ],
+    Namespace: 'Udacity/Serveless'
+  }).promise()
+
+
+  // TODO: Record time it took to get a response
+  await cloudwatch.putMetricData({
+    MetricData: [
+      {
+        MetricName: 'Latency',
+        Dimensions: [
+          {
+            Name: 'ServiceName',
+            Value: serviceName
+          }
+        ],
+        Unit: 'Milliseconds',
+        Value: totalTime
+      }
+    ],
+    Namespace: 'Udacity/Serveless'
+  }).promise()
   
   // Example of how to write a single data point
   // await cloudwatch.putMetricData({
@@ -45,41 +82,6 @@ exports.handler = async (event) => {
   //   Namespace: 'Udacity/Serveless'
   // }).promise();
 
-  // TODO: Record time it took to get a response
-  await cloudwatch.putMetricData({
-    MetricData: [
-      {
-        MetricName: 'Latency', // Use different metric names for different values, e.g. 'Latency' and 'Successful'
-        Dimensions: [
-          {
-            Name: 'ServiceName',
-            Value: serviceName
-          }
-        ],
-        Unit: 'Milliseconds', // 'Milliseconds'
-        Value: totalTime // Total value
-      }
-    ],
-    Namespace: 'Udacity/Serveless'
-  }).promise();
-
-  // TODO: Record if a response was successful or not
-  await cloudwatch.putMetricData({
-    MetricData: [
-      {
-        MetricName: 'Success', // Use different metric names for different values, e.g. 'Latency' and 'Successful'
-        Dimensions: [
-          {
-            Name: 'ServiceName',
-            Value: serviceName
-          }
-        ],
-        Unit: 'Count', // 'Count' 
-        Value: requestWasSuccessful ? 1 : 0 
-      }
-    ],
-    Namespace: 'Udacity/Serveless'
-  }).promise();
 }
 
 function timeInMs() {
