@@ -18,7 +18,7 @@ provider:
   runtime: nodejs8.10
 
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-east-2'}
 
   tracing:
     lambda: true
@@ -135,7 +135,8 @@ functions:
             summary: Create a new group
             description: Create a new group
             requestModels:
-              'application/json': GroupRequest
+              # defined model in "models" under documentation section: 
+              'application/json': GroupRequest 
     deploymentSettings:
       type: Linear10PercentEvery1Minute
       alias: Live
@@ -156,6 +157,14 @@ functions:
         Action:
           - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}
+
+  GetImage:
+    handler: src/lambda/http/getImage.handler
+    events: 
+      - http: 
+        method: get
+        path: images/{imageId}
+        cors: true 
 
   CreateImage:
     handler: src/lambda/http/createImage.handler
@@ -289,6 +298,7 @@ resources:
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.CONNECTIONS_TABLE}
 
+    # use in "reqValidatorName" of CreateGroup function: 
     RequestBodyValidator:
       Type: AWS::ApiGateway::RequestValidator
       Properties:

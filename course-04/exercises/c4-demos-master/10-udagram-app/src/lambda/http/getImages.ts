@@ -31,7 +31,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const images = await getImagesPerGroup(groupId)
 
   return {
-    statusCode: 201,
+    statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
@@ -42,14 +42,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 }
 
 async function groupExists(groupId: string) {
-  const result = await docClient
-    .get({
+  const result = await docClient.get({
       TableName: groupsTable,
       Key: {
         id: groupId
       }
-    })
-    .promise()
+    }).promise()
 
   console.log('Get group: ', result)
   return !!result.Item
@@ -58,10 +56,14 @@ async function groupExists(groupId: string) {
 async function getImagesPerGroup(groupId: string) {
   const result = await docClient.query({
     TableName: imagesTable,
+    // specify partition key as grouId: 
     KeyConditionExpression: 'groupId = :groupId',
+    // contine to specify partition key:  
     ExpressionAttributeValues: {
       ':groupId': groupId
     },
+    // reverse the sort order of items stored in partition 
+    // return the latest images first
     ScanIndexForward: false
   }).promise()
 

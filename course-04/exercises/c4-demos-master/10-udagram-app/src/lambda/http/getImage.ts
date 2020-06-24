@@ -15,14 +15,15 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const imageId = event.pathParameters.imageId
 
   const result = await docClient.query({
-      TableName : imagesTable,
-      IndexName : imageIdIndex,
-      KeyConditionExpression: 'imageId = :imageId',
-      ExpressionAttributeValues: {
-          ':imageId': imageId
-      }
+    TableName : imagesTable,
+    IndexName : imageIdIndex,
+    KeyConditionExpression: 'imageId = :imageId',
+    ExpressionAttributeValues: {
+        ':imageId': imageId
+    }
   }).promise()
 
+  // check how many items in the list: 
   if (result.Count !== 0) {
     return {
       statusCode: 200,
