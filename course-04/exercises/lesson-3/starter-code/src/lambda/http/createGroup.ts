@@ -8,12 +8,14 @@ const groupsTable = process.env.GROUPS_TABLE
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Processing event: ', event)
-  const itemId = uuid.v4()
 
-  const parsedBody = JSON.parse(event.body)
+  // create unique id for each new item: 
+  const groupId = uuid.v4()
+  // extract event's bodoy: 
+  const parsedBody = JSON.parse(event.body) // "name" and "description"
 
   const newItem = {
-    id: itemId,
+    id: groupId,
     ...parsedBody
   }
 

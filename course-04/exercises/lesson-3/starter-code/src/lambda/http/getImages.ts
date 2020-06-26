@@ -10,6 +10,8 @@ const imagesTable = process.env.IMAGES_TABLE
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   console.log('Caller event', event)
+
+  // get images by groupId:
   const groupId = event.pathParameters.groupId
   const validGroupId = await groupExists(groupId)
 
@@ -39,20 +41,20 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 }
 
 async function groupExists(groupId: string) {
-  const result = await docClient
-    .get({
+  const result = await docClient.get({
       TableName: groupsTable,
       Key: {
         id: groupId
       }
-    })
-    .promise()
+    }).promise()
 
   console.log('Get group: ', result)
   return !!result.Item
 }
 
 async function getImagesPerGroup(groupId: string) {
+
+  // Query: allows to get subset of element with partition key
   const result = await docClient.query({
     TableName: imagesTable,
     KeyConditionExpression: 'groupId = :groupId',

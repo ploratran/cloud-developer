@@ -3,12 +3,12 @@ import 'source-map-support/register'
 import * as AWS  from 'aws-sdk'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
-
 const groupsTable = process.env.GROUPS_TABLE
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Processing event: ', event)
 
+  // use Scan to get all items in the table: 
   const result = await docClient.scan({
     TableName: groupsTable
   }).promise()

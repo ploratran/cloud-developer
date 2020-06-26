@@ -12,7 +12,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   console.log('Caller event', event)
   
   // get groupId from url path: 
-  const groupId = event.pathParameters.groupId
+  const groupId = event.pathParameters.groupId // partition key
   // check group validity: 
   const validGroupId = await groupExists(groupId)
 
@@ -29,8 +29,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     }
   }
 
-  // TODO: Create an image //
-
+  // TODO:    //
   // generate unique id for each image: 
   const imageId = uuid.v4(); 
 
@@ -62,10 +61,14 @@ async function groupExists(groupId: string) {
   return !!result.Item
 }
 
+// TODO:  Create an image //
 async function createImage(groupId: string, imageId: string, event: any) {
 
-  const timestamp = new Date().toISOString();
-  const parsedBody = JSON.parse(event.body); 
+  // sort items by timestamp: 
+  const timestamp = new Date().toISOString(); // sort key
+
+  console.log('Processing event: ' + event); 
+  const parsedBody = JSON.parse(event.body); // "title"
 
   const newImage = {
     groupId, 

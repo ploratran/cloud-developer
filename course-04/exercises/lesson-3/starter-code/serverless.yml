@@ -51,7 +51,6 @@ custom:
         schema: ${file(models/create-image-request.json)}
 
 functions:
-
   GetGroups:
     handler: src/lambda/http/getGroups.handler
     events:
@@ -72,6 +71,7 @@ functions:
             summary: Create a new group
             description: Create a new group
             requestModels:
+              # use JSON schema to validate request in Group table: 
               'application/json': GroupRequest
 
   GetImages:
@@ -80,6 +80,14 @@ functions:
       - http:
           method: get
           path: groups/{groupId}/images
+          cors: true
+
+  GetImage:
+    handler: src/lambda/http/getImage.handler
+    events:
+      - http:
+          method: get
+          path: images/{imageId}
           cors: true
 
   CreateImage:
@@ -99,34 +107,32 @@ functions:
 resources:
   Resources:
     GroupsDynamoDBTable:
-      Type: AWS::DynamoDB::Table
+      Type: "AWS::DynamoDB::Table"
       Properties:
         AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
+          - AttributeName: id # partition key name
+            AttributeType: S # partition key type
         KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
+          - AttributeName: id 
+            KeyType: HASH # partition key
+        BillingMode: PAY_PER_REQUEST # on-demand capacity mode
         TableName: ${self:provider.environment.GROUPS_TABLE}
 
     ImagesDynamoDBTable:
       Type: "AWS::DynamoDB::Table"
       Properties:
         AttributeDefinitions:
-          - AttributeName: groupId
+          - AttributeName: groupId # partition key
             AttributeType: S
-          - AttributeName: timestamp
+          - AttributeName: timestamp # sort key
             AttributeType: S
           - AttributeName: imageId
             AttributeType: S
         KeySchema:
           - AttributeName: groupId
-            KeyType: HASH
+            KeyType: HASH # partition key
           - AttributeName: timestamp
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.IMAGES_TABLE}
+            KeyType: RANGE # sort key
         GlobalSecondaryIndexes:
           - IndexName: ${self:provider.environment.IMAGE_ID_INDEX}
             KeySchema:
@@ -134,6 +140,8 @@ resources:
               KeyType: HASH
             Projection:
               ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST # on-demand capacity mode
+        TableName: ${self:provider.environment.IMAGES_TABLE}
 
     RequestBodyValidator:
       Type: AWS::ApiGateway::RequestValidator
@@ -141,6 +149,6 @@ resources:
         Name: 'request-body-validator'
         RestApiId:
           Ref: ApiGatewayRestApi
-        ValidateRequestBody: true
+        ValidateRequestBody: true # only validate body of request
         ValidateRequestParameters: false
 

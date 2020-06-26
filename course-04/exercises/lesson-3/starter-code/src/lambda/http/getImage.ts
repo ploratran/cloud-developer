@@ -9,8 +9,11 @@ const imageIdIndex = process.env.IMAGE_ID_INDEX
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Caller event', event)
+
+  // get image by particular id: 
   const imageId = event.pathParameters.imageId
 
+   // Query: allows to get subset of element with partition key
   const result = await docClient.query({
       TableName : imagesTable,
       IndexName : imageIdIndex,
@@ -35,6 +38,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: ''
+    body: JSON.stringify({ 
+      error: "Image does not exist"
+    })
   }
 }
