@@ -30,10 +30,13 @@ exports.handler = async (event) => {
     const result = await docClient.scan({
         TableName: groupsTable, 
         Limit: limit, 
-        ExclusiveStartKey: nextKey 
+        // ExclusiveStartKey: nextKey 
+        ExclusiveStartKey: startkey,
     }).promise(); 
     
-    const items = result.Items; 
+    const items = result.Items;
+    
+    const startKey = result.LastEvaluatedKey;
      
     // return result to client: 
     const response = {
@@ -43,7 +46,7 @@ exports.handler = async (event) => {
         }, 
         body: JSON.stringify({ 
             items, 
-            nextKey: encodeLastEvaluatedKey(result.LastEvaluatedKey), 
+            nextKey: encodeNextKey(startKey), 
         })
     };
     
@@ -90,16 +93,17 @@ const getNextKeyParameter = event => {
         return undefined; 
     }
     
-    // decode nextKey string and parse JSON string in order to pass into GET request
+    // decode nextKey string and 
+    // parse JSON string into a JSON object in order to pass into GET request
     // @return {String}
-    console.log('NextKey ' + JSON.parse(decodeURIComponent(nextKeyStr))); 
+    // console.log('NextKey ' + JSON.parse(decodeURIComponent(nextKeyStr))); 
     return JSON.parse(decodeURIComponent(nextKeyStr)); 
 }
 
 // LastEvaluatedKey is a object from DynamoDB
 // convert the LastEvaluatedKey from a JSON object to a string
 // then encode it to URI in order to pass it in a URL
-const encodeLastEvaluatedKey = lastEvaluatedKey => {
+const encodeNextKey = lastEvaluatedKey => {
   // 
   if (!lastEvaluatedKey) {
       // if null, means no more items to return: 
@@ -108,6 +112,6 @@ const encodeLastEvaluatedKey = lastEvaluatedKey => {
    
   // return a string as a URI encoded of LastEvaluatedKey
   // @return {String} 
-  console.log('lastEvaluatedKey ' + encodeURIComponent(JSON.stringify(lastEvaluatedKey))); 
+  // console.log('lastEvaluatedKey ' + encodeURIComponent(JSON.stringify(lastEvaluatedKey))); 
   return encodeURIComponent(JSON.stringify(lastEvaluatedKey)); 
 }; 
