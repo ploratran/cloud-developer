@@ -31,7 +31,7 @@ exports.handler = async (event) => {
         TableName: groupsTable, 
         Limit: limit, 
         // ExclusiveStartKey: nextKey 
-        ExclusiveStartKey: startkey,
+        ExclusiveStartKey: nextKey,
     }).promise(); 
     
     const items = result.Items;
