@@ -8,18 +8,18 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-east-2'}
 
   environment:
     GROUPS_TABLE: Groups-${self:provider.stage}
     IMAGES_TABLE: Images-${self:provider.stage}
     IMAGE_ID_INDEX: ImageIdIndex
-    CONNECTIONS_TABLE: Connections-${self:provider.stage}
+    CONNECTIONS_TABLE: Connections-${self:provider.stage} # DynamoDB for Websocket user by connectionID
     IMAGES_S3_BUCKET: serverless-udagram-images-${self:provider.stage}
-    SIGNED_URL_EXPIRATION: 300
+    SIGNED_URL_EXPIRATION: 300 # expired time of S3 signed URL
     THUMBNAILS_S3_BUCKET: serverless-udagram-thumbnail-${self:provider.stage}
 
   iamRoleStatements:
@@ -71,7 +71,6 @@ custom:
         schema: ${file(models/create-image-request.json)}
 
 functions:
-
   GetGroups:
     handler: src/lambda/http/getGroups.handler
     events:
@@ -118,6 +117,7 @@ functions:
 
   SendUploadNotifications:
     environment:
+      # anything in this environment will available to this function handler
       STAGE: ${self:provider.stage}
       API_ID:
         Ref: WebsocketsApi
@@ -136,16 +136,18 @@ functions:
   ResizeImage:
     handler: src/lambda/s3/resizeImage.handler
 
+  # react to Websocket events using Serverless Framework: 
   ConnectHandler:
     handler: src/lambda/websocket/connect.handler
     events:
       - websocket:
-          route: $connect
-
+          # event sent by Lambda function when user connect to Websocket
+          route: $connect 
   DisconnectHandler:
     handler: src/lambda/websocket/disconnect.handler
     events:
       - websocket:
+          # event sent when user disconnect to Websocket
           route: $disconnect
 
   # Uncomment if you want to enable Elasticsearch sync
@@ -184,9 +186,9 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: groupId
-            KeyType: HASH
+            KeyType: HASH # partition key
           - AttributeName: timestamp
-            KeyType: RANGE
+            KeyType: RANGE # sort key
         BillingMode: PAY_PER_REQUEST
         StreamSpecification:
           StreamViewType: NEW_IMAGE
@@ -222,23 +224,27 @@ resources:
         ValidateRequestBody: true
         ValidateRequestParameters: false
 
+    # Cloudformation resource use S3: 
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       DependsOn: SNSTopicPolicy
       Properties:
+        # linked to S3 bucket: 
         BucketName: ${self:provider.environment.IMAGES_S3_BUCKET}
         NotificationConfiguration:
+          # specify to connect S3 bucket events to Lambda function
+          # LambdaConfigurations: 
           TopicConfigurations:
             - Event: s3:ObjectCreated:Put
               Topic: !Ref ImagesTopic
-        CorsConfiguration:
+        CorsConfiguration: # define CORS configuration: 
           CorsRules:
             -
-              AllowedOrigins:
+              AllowedOrigins: # allow all Origins
                 - '*'
-              AllowedHeaders:
+              AllowedHeaders: # allow all Headers
                 - '*'
-              AllowedMethods:
+              AllowedMethods: # allow all Methods
                 - GET
                 - PUT
                 - POST
@@ -256,9 +262,10 @@ resources:
             - Sid: PublicReadForGetBucketObjects
               Effect: Allow
               Principal: '*'
-              Action: 's3:GetObject'
+              Action: 's3:GetObject' # allow anybody to get object from S3
               Resource: 'arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}/*'
-        Bucket: !Ref AttachmentsBucket
+        # Ref is a function in CloudFormation that allows to get an id of a resource:
+        Bucket: !Ref AttachmentsBucket # point S3 bucket defined in Cloudformation template
 
     SNSTopicPolicy:
       Type: AWS::SNS::TopicPolicy

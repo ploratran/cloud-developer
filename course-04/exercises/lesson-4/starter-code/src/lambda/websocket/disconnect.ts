@@ -10,12 +10,15 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   console.log('Websocket disconnect', event)
 
   const connectionId = event.requestContext.connectionId
+
+  // specify key to delete in connectionsTable: 
   const key = {
       id: connectionId
   }
 
   console.log('Removing item with key: ', key)
 
+  // use DELETE method to delete item with specified key: 
   await docClient.delete({
     TableName: connectionsTable,
     Key: key
