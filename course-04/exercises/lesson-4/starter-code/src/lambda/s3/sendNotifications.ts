@@ -4,7 +4,7 @@ import * as AWS  from 'aws-sdk'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
-const connectionsTable = process.env.CONNECTIONS_TABLE
+const connectionsTable = process.env.CONNECTIONS_TABLE // table with connectionId of Websocket Event
 const stage = process.env.STAGE
 const apiId = process.env.API_ID
 

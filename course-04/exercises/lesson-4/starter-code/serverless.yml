@@ -123,15 +123,17 @@ functions:
         Ref: WebsocketsApi
     handler: src/lambda/s3/sendNotifications.handler
     events:
+      # define SNS topic: 
       - sns:
           arn:
-            Fn::Join:
+            # define ARN of an SNS topic we are subscribing to: 
+            Fn::Join: # combined everything using Cloudformation JOIN function 
               - ':'
-              - - arn:aws:sns
-                - Ref: AWS::Region
-                - Ref: AWS::AccountId
+              - - arn:aws:sns # prefix of sns started
+                - Ref: AWS::Region # name of region sns created
+                - Ref: AWS::AccountId # number of account topic created 
                 - ${self:custom.topicName}
-          topicName: ${self:custom.topicName}
+          topicName: ${self:custom.topicName} # name of sns topic
 
   ResizeImage:
     handler: src/lambda/s3/resizeImage.handler
@@ -276,6 +278,7 @@ resources:
         # Ref is a function in CloudFormation that allows to get an id of a resource:
         Bucket: !Ref AttachmentsBucket # point S3 bucket defined in Cloudformation template
 
+    # defie SNS topic: 
     SNSTopicPolicy:
       Type: AWS::SNS::TopicPolicy
       Properties:
