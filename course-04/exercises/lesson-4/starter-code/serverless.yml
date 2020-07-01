@@ -151,14 +151,20 @@ functions:
           route: $disconnect
 
   # Uncomment if you want to enable Elasticsearch sync
-  # SyncWithElasticsearch:
-  #   environment:
-  #     ES_ENDPOINT: !GetAtt ImagesSearch.DomainEndpoint
-  #   handler: src/lambda/dynamoDb/elasticSearchSync.handler
-  #   events:
-  #     - stream:
-  #         type: dynamodb
-  #         arn: !GetAtt ImagesDynamoDBTable.StreamArn
+  SyncWithElasticsearch:
+    # environment only available to this handler
+    # name of ElasticSearch domain from ImagesSearch in resources
+    # use to connect to Elastic function, copy items from DynamoDB
+    environment:
+      ES_ENDPOINT: !GetAtt ImagesSearch.DomainEndpoint
+    handler: src/lambda/dynamoDb/elasticSearchSync.handler
+    events:
+      # specify event is a dynamodb stream: 
+      - stream:
+          type: dynamodb
+          # specify ARN of dynamodb stream: 
+          # get attribute from DynamoDB Stream with resource ImagesDynamoDBTable: 
+          arn: !GetAtt ImagesDynamoDBTable.StreamArn
 
 resources:
   Resources:
@@ -190,14 +196,17 @@ resources:
           - AttributeName: timestamp
             KeyType: RANGE # sort key
         BillingMode: PAY_PER_REQUEST
+        # specify DynamoDB stream: 
         StreamSpecification:
+          # type of stream: NEW_IMAGE
+          # only a new version in the stream: 
           StreamViewType: NEW_IMAGE
         TableName: ${self:provider.environment.IMAGES_TABLE}
         GlobalSecondaryIndexes:
           - IndexName: ${self:provider.environment.IMAGE_ID_INDEX}
             KeySchema:
             - AttributeName: imageId
-              KeyType: HASH
+              KeyType: HASH # partition key
             Projection:
               ProjectionType: ALL
 
@@ -296,29 +305,31 @@ resources:
         DisplayName: Image bucket topic
         TopicName: ${self:custom.topicName}
 
-    # Uncomment if you want to create Elasticsearch
-    # ImagesSearch:
-    #   Type: AWS::Elasticsearch::Domain
-    #   Properties:
-    #     ElasticsearchVersion: '6.3'
-    #     DomainName: images-search-${self:provider.stage}
-    #     ElasticsearchClusterConfig:
-    #       DedicatedMasterEnabled: false
-    #       InstanceCount: '1'
-    #       ZoneAwarenessEnabled: false
-    #       InstanceType: t2.small.elasticsearch
-    #     EBSOptions:
-    #       EBSEnabled: true
-    #       Iops: 0
-    #       VolumeSize: 10
-    #       VolumeType: 'gp2'
-
-    #     AccessPolicies:
-    #       Version: '2012-10-17'
-    #       Statement:
-    #         -
-    #           Effect: Allow
-    #           Principal:
-    #             AWS: '*'
-    #           Action: 'es:*'
-    #           Resource: '*'
+    # create ElasticSearch cluster: 
+    ImagesSearch:
+      Type: AWS::Elasticsearch::Domain
+      Properties:
+        ElasticsearchVersion: '6.3'
+        DomainName: images-search-${self:provider.stage}
+        ElasticsearchClusterConfig:
+          DedicatedMasterEnabled: false # no master host
+          InstanceCount: '1'
+          ZoneAwarenessEnabled: false
+          InstanceType: t2.small.elasticsearch # instance type
+        # define Elastic Block Store:
+        # define storage for cluster nodes: 
+        EBSOptions:
+          EBSEnabled: true
+          Iops: 0
+          VolumeSize: 10
+          VolumeType: 'gp2'
+        # define Access policy for ElasticSearch cluster: 
+        AccessPolicies:
+          Version: '2012-10-17'
+          Statement:
+            -
+              Effect: Allow
+              Principal:
+                AWS: '*'
+              Action: 'es:*'
+              Resource: '*'
