@@ -135,8 +135,21 @@ functions:
                 - ${self:custom.topicName}
           topicName: ${self:custom.topicName} # name of sns topic
 
+  # Lambda function to resize image via SNS topic: 
   ResizeImage:
     handler: src/lambda/s3/resizeImage.handler
+    events:
+      # define SNS topic: 
+      - sns:
+          arn: # define ARN of an SNS topic we are subscribing to: 
+            Fn::Join: # combined everything using Cloudformation JOIN function 
+              - ':'
+              - - arn:aws:sns # prefix of sns started
+                - Ref: AWS::Region # name of region sns created
+                - Ref: AWS::AccountId # number of account topic created 
+                - ${self:custom.topicName}
+          topicName: ${self:custom.topicName} # name of sns topic
+
 
   # react to Websocket events using Serverless Framework: 
   ConnectHandler:
@@ -247,7 +260,7 @@ resources:
           # LambdaConfigurations: 
           TopicConfigurations:
             - Event: s3:ObjectCreated:Put
-              Topic: !Ref ImagesTopic
+              Topic: !Ref ImagesTopic # send all events to topic name ImagesTopic
         CorsConfiguration: # define CORS configuration: 
           CorsRules:
             -
@@ -278,7 +291,7 @@ resources:
         # Ref is a function in CloudFormation that allows to get an id of a resource:
         Bucket: !Ref AttachmentsBucket # point S3 bucket defined in Cloudformation template
 
-    # defie SNS topic: 
+    # defie SNS topic policy to allow S3 to send events to this topic: 
     SNSTopicPolicy:
       Type: AWS::SNS::TopicPolicy
       Properties:
@@ -288,11 +301,12 @@ resources:
             - Effect: Allow
               Principal:
                 AWS: "*"
-              Action: sns:Publish
+              Action: sns:Publish # allow to call Publish action from S3 event
               Resource:
                 !Ref ImagesTopic
               Condition:
                 ArnLike:
+                  # use ARN to define only S3 bucket to allow Publish
                   AWS:SourceArn: arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}
         Topics:
           - !Ref ImagesTopic
@@ -302,11 +316,11 @@ resources:
       Properties:
         BucketName: ${self:provider.environment.THUMBNAILS_S3_BUCKET}
 
-    ImagesTopic:
+    ImagesTopic: # define SNS topic name
       Type: AWS::SNS::Topic
       Properties:
-        DisplayName: Image bucket topic
-        TopicName: ${self:custom.topicName}
+        DisplayName: Image bucket topic # human-readable topic name
+        TopicName: ${self:custom.topicName} # topic name from "custom" section
 
     # create ElasticSearch cluster: 
     ImagesSearch:
