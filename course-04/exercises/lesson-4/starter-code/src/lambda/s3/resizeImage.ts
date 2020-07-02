@@ -38,12 +38,12 @@ async function processImage(record: S3EventRecord) {
 
     // body contains the downloaded object of type Buffer: 
     // Type Buffer: work with an array of bytes
-    const body: Buffer = response.Body;
+    const body = response.Body;
 
     // resize image using JIMP: 
     const image = await Jimp.read(body); 
 
-    // resize image with ration maintained between width and height:
+    // resize image to 150px with ratio maintained between width and height:
     image.resize(150, Jimp.AUTO); 
 
     // convert image to buffer that can write to different bucket: 
