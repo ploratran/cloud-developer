@@ -9,7 +9,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
-
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-2'}
 
@@ -18,9 +17,9 @@ provider:
     IMAGES_TABLE: Images-${self:provider.stage}
     IMAGE_ID_INDEX: ImageIdIndex
     CONNECTIONS_TABLE: Connections-${self:provider.stage} # DynamoDB for Websocket user by connectionID
-    IMAGES_S3_BUCKET: serverless-udagram-images-${self:provider.stage}
+    IMAGES_S3_BUCKET: serverless-udagram-images-0129-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300 # expired time of S3 signed URL
-    THUMBNAILS_S3_BUCKET: serverless-udagram-thumbnail-${self:provider.stage}
+    THUMBNAILS_S3_BUCKET: serverless-udagram-thumbnail-0129-${self:provider.stage}
 
   iamRoleStatements:
     - Effect: Allow
@@ -55,7 +54,7 @@ provider:
       Resource: arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.CONNECTIONS_TABLE}
 
 custom:
-  topicName: imagesTopic-${self:provider.stage}
+  topicName: imagesTopic-${self:provider.stage} # SNS topic
   documentation:
     api:
       info:
@@ -139,7 +138,7 @@ functions:
   ResizeImage:
     handler: src/lambda/s3/resizeImage.handler
     events:
-      # define SNS topic: 
+      # define SNS topic, same with SendUploadNotifications: 
       - sns:
           arn: # define ARN of an SNS topic we are subscribing to: 
             Fn::Join: # combined everything using Cloudformation JOIN function 

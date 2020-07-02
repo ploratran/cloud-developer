@@ -21,6 +21,7 @@ const connectionParams = {
   endpoint: `${apiId}.execute-api.us-east-2.amazonaws.com/${stage}`
 }
 
+// apiGateway for Websocket API: 
 const apiGateway = new AWS.ApiGatewayManagementApi(connectionParams)
 
 // use SNS event from aws-lambda
