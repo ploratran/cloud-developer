@@ -27,14 +27,14 @@ export const handler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent)
       continue
     }
 
-    // get DynamoDB item that's added to DynamoDB: 
+    // get DynamoDB item that's added to DynamoDB stream: 
     const newItem = record.dynamodb.NewImage
 
-    // get image ID that's added to Images Table: 
+    // get image ID that's added to Images DynamoDB table: 
     const imageId = newItem.imageId.S
 
     // create document that will store in ElasticSearch
-    // derived from DynamoDB: 
+    // derived from DynamoDB Image table: 
     const body = {
       imageId: newItem.imageId.S,
       groupId: newItem.groupId.S,
@@ -51,6 +51,5 @@ export const handler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent)
       id: imageId, // document ID
       body
     })
-
   }
 }
