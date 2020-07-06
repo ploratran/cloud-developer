@@ -59,7 +59,7 @@ async function getImagesPerGroup(groupId: string) {
     ExpressionAttributeValues: {
       ':groupId': groupId
     },
-    ScanIndexForward: false
+    ScanIndexForward: false // get latest image first
   }).promise()
 
   return result.Items

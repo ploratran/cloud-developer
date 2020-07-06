@@ -93,6 +93,6 @@ function getUploadUrl(imageId: string) {
   return s3.getSignedUrl('putObject', { // event: PUT to allow upload/read object
     Bucket: bucketName, // name of S3 bucket
     Key: imageId, // id of object this URL allow access to 
-    Expires: +urlExpiration // URL expiration time
+    Expires: +urlExpiration // URL expiration time as number type
   })
 }

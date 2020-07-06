@@ -20,6 +20,7 @@ provider:
     IMAGES_S3_BUCKET: serverless-udagram-images-0129-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300 # expired time of S3 signed URL
     THUMBNAILS_S3_BUCKET: serverless-udagram-thumbnail-0129-${self:provider.stage}
+    AUTH0_SECRET: O4eCFsNxfXB-PPQMxO2qWVgL9UJhiT6HnalIpZlnvRZmePfUBZPcFuOU64kVwD0q # client secret from Auth0.com to verify JWT token
 
   iamRoleStatements:
     - Effect: Allow
@@ -62,6 +63,7 @@ custom:
         title: Udagram API
         description: Serverless application for images sharing
     models:
+      # JSON schema models for /groups and /images
       - name: GroupRequest
         contentType: application/json
         schema: ${file(models/create-group-request.json)}

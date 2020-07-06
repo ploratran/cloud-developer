@@ -11,6 +11,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   console.log('Caller event', event)
   const imageId = event.pathParameters.imageId
 
+  // use query instead of scan to get each item, instead of all items:
   const result = await docClient.query({
       TableName : imagesTable,
       IndexName : imageIdIndex,
@@ -20,13 +21,14 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       }
   }).promise()
 
+  // check if there is more than 0 item in imagesTable: 
   if (result.Count !== 0) {
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify(result.Items[0])
+      body: JSON.stringify(result.Items[0]) // return the first item in the table 
     }
   }
 
