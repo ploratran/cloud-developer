@@ -3,6 +3,9 @@ import 'source-map-support/register'
 import * as AWS  from 'aws-sdk'
 import * as uuid from 'uuid'
 
+import * as middy from 'middy'
+import { cors } from 'middy/middlewares' // import cors middy middleware
+
 const docClient = new AWS.DynamoDB.DocumentClient()
 
 // use S3 AWS: 
@@ -15,7 +18,8 @@ const imagesTable = process.env.IMAGES_TABLE
 const bucketName = process.env.IMAGES_S3_BUCKET
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION
 
-export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+// use middy() for handler: 
+export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Caller event', event)
   const groupId = event.pathParameters.groupId
   const validGroupId = await groupExists(groupId)
@@ -24,9 +28,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   if (!validGroupId) {
     return {
       statusCode: 404,
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      },
+      // remove because middy will add CORS headers:
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Access-Control-Allow-Credentials': true, 
+      // },
       body: JSON.stringify({
         error: 'Group does not exist'
       })
@@ -41,16 +47,18 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   return {
     statusCode: 201,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
+    // remove because middy will add CORS headers:
+    // headers: {
+    //   'Access-Control-Allow-Origin': '*',
+    //   'Access-Control-Allow-Credentials': true, 
+    // },
     body: JSON.stringify({
       newItem: newItem,
       // return URL used to upload file for specific image created by API call to DynamoDB
       uploadUrl: url
     })
   }
-}
+})
 
 async function groupExists(groupId: string) {
 
@@ -96,3 +104,9 @@ function getUploadUrl(imageId: string) {
     Expires: +urlExpiration // URL expiration time as number type
   })
 }
+
+// use cors middleware: 
+handler.use(cors({
+  // allow headers that allow to send credentials to browser: 
+  credentials: true, 
+}))
