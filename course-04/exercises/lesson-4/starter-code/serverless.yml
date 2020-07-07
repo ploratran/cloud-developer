@@ -369,7 +369,7 @@ resources:
               Resource: '*'
     
     # Configure Key Manager Secret to store Secrets: 
-    KMS Key: 
+    KMSKey: 
       Type: AWS::KMS::Key 
       Properties: 
         Description: KMS key to encrypt Auth0 Secret
@@ -382,7 +382,7 @@ resources:
               Principal: 
                 # give root user access to KMS: 
                 AWS:
-                  Fn::Joi: 
+                  Fn::Join: 
                   - ':'
                   - - 'arn:aws:iam:'
                     - Ref: AWS::AccountId
