@@ -6,6 +6,9 @@ import * as uuid from 'uuid'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 
+// use helper function to store an Id of a user when create a new item: 
+import { getUserId } from '../../auth/util' 
+
 const docClient = new AWS.DynamoDB.DocumentClient()
 const groupsTable = process.env.GROUPS_TABLE
 
@@ -15,10 +18,20 @@ export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGat
 
   const parsedBody = JSON.parse(event.body)
 
+  // get JWT token in an event handler: 
+  const authorization = event.headers.authorization
+  const split = authorization.split(' ')
+  const jwtToken = split[1]
+
+  // extract user ID from a JWT token using getUserId: 
+  const userId = getUserId(jwtToken); 
+
   const newItem = {
-    id: itemId,
-    ...parsedBody
+    id: itemId, // store user Id into DynamoDB groupsTable 
+    userId, 
+    ...parsedBody,
   }
+
 
   await docClient.put({
     TableName: groupsTable,
