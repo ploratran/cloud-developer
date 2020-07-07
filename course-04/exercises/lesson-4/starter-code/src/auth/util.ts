@@ -1,5 +1,5 @@
-import { decode } from 'jsonwebtoken'
 import { JwtToken } from './JwtToken'
+import { decode } from 'jsonwebtoken' // parse JWT token and return its payload
 
 /**
  * Parse a JWT token and return a user id
@@ -8,5 +8,6 @@ import { JwtToken } from './JwtToken'
  */
 
 export function getUserId(jwtToken: string): string {
-    return ''; 
+    const decodedJwt = decode(jwtToken) as JwtToken; 
+    return decodedJwt.sub; // sub is Id of user passed with Auth0
 }
