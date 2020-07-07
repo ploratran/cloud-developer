@@ -7,7 +7,23 @@ import 'source-map-support/register'
 import { verify } from 'jsonwebtoken'
 import { JwtToken } from '../../auth/JwtToken'
 
-const certificate = ''; 
+const certificate = `MIIDDTCCAfWgAwIBAgIJTspaC7dGTAx+MA0GCSqGSIb3DQEBCwUAMCQxIjAgBgNV
+BAMTGWRldi1lNWdtM2xnNC51cy5hdXRoMC5jb20wHhcNMjAwNzA1MTg1NjEzWhcN
+MzQwMzE0MTg1NjEzWjAkMSIwIAYDVQQDExlkZXYtZTVnbTNsZzQudXMuYXV0aDAu
+Y29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArwLXHr2DbzBsoO+r
+FqJkyR65EYlA2h4CvJmJraxqZYFLykR1mYbJStcOgSPavgPUQtrKZJ9mI7Zf8WmH
+ILkNs7qd+AzkdgkTK1zIxe8fidq1PkKCfiCnDLonXZAoCXSjX2u20w+2sJ83327I
+W+kpuMRe6oF9rG0v16r8a2fhRKt81RdwBJPVVOpxKhd+BZ4WsSp/14JGhIhO0cUE
+lH0PDDAOXFvDFZhjRljTeDT++pUa61NyN+dxNCuxE8eKBE1Gto2CSY4Pq7t2hBhd
+vZlaJp8s5Apnt8ifHV9a50x3jkHKF+7UiUBqM/QishZgeq527f9R+FPsBWmrCrw+
+OszanQIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTN5NFGxq/L
+Yja23242jgUDErkjCTAOBgNVHQ8BAf8EBAMCAoQwDQYJKoZIhvcNAQELBQADggEB
+AENlf0aslphBLtRKBLn5+Y02Q9pVtBFJ+bzMlcv1ChnZVwRsCrQUrj/XXeWag6tl
+TSdgzf8EIWKeUgm5NQr7WH/kGbVX2vnzb/lVOs8E59syj3v2iYTweGTGojCyBS8q
+3cXuGyxXzV/UkwWbxZLNFUjrxA4NSAr7NTN+DIk7r2yyWciiwuLqyPkJiEsWvJkF
+JgBwxSLB4BWc4RyYd6u9Hg1wXzsrZNwTBemmns3dvh4X071k3JTnlg/Xxv/LT2Hb
+eDmgYhtli0t3oPROnf2YAbKBEnWqvu7Udx9t/rwKqjmjKGrk9PEaRpr9txoHCR3D
+vAGKLf9PcfdGo9i9vPdHFTI=`;
 
 export const handler = async (event: CustomAuthorizerEvent): Promise<CustomAuthorizerResult> => {
     try {
