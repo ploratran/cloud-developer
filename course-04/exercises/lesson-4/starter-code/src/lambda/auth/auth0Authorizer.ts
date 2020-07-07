@@ -1,5 +1,4 @@
-// Authorize Auth0
-
+// Authorize Auth0 HS256 (Symmetric) Algorithm: 
 import { CustomAuthorizerEvent, CustomAuthorizerResult } from 'aws-lambda'
 import 'source-map-support/register'
 import * as middy from 'middy'
@@ -65,7 +64,11 @@ function verifyToken(authHeader: string, secret: string): JwtToken {
   const split = authHeader.split(' ')
   const token = split[1]
 
-  return verify(token, secret) as JwtToken
+  return verify(
+    token, 
+    secret,
+    { algorithm: ['HS256'] } // specify using HS256 algorithm 
+  ) as JwtToken
 }
 
 // use secretsManager middleware

@@ -89,7 +89,10 @@ custom:
 
 functions:
 
-  Auth: 
+  RS256Auth: 
+    handler: src/lambda/auth/RS256Auth0Authorizer.handler
+
+  HS256Auth: 
     handler: src/lambda/auth/auth0Authorizer.handler
   
   GetGroups:
@@ -107,7 +110,7 @@ functions:
           method: post
           path: groups
           cors: true
-          authorizer: Auth
+          authorizer: HS256Auth
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new group
@@ -130,7 +133,7 @@ functions:
           method: post
           path: groups/{groupId}/images
           cors: true
-          authorizer: Auth
+          authorizer: HS256Auth
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new image
