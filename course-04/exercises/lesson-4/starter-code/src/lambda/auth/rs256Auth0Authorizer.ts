@@ -7,7 +7,8 @@ import 'source-map-support/register'
 import { verify } from 'jsonwebtoken'
 import { JwtToken } from '../../auth/JwtToken'
 
-const certificate = `MIIDDTCCAfWgAwIBAgIJTspaC7dGTAx+MA0GCSqGSIb3DQEBCwUAMCQxIjAgBgNV
+const certificate = `-----BEGIN CERTIFICATE-----
+MIIDDTCCAfWgAwIBAgIJTspaC7dGTAx+MA0GCSqGSIb3DQEBCwUAMCQxIjAgBgNV
 BAMTGWRldi1lNWdtM2xnNC51cy5hdXRoMC5jb20wHhcNMjAwNzA1MTg1NjEzWhcN
 MzQwMzE0MTg1NjEzWjAkMSIwIAYDVQQDExlkZXYtZTVnbTNsZzQudXMuYXV0aDAu
 Y29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArwLXHr2DbzBsoO+r
@@ -23,7 +24,8 @@ TSdgzf8EIWKeUgm5NQr7WH/kGbVX2vnzb/lVOs8E59syj3v2iYTweGTGojCyBS8q
 3cXuGyxXzV/UkwWbxZLNFUjrxA4NSAr7NTN+DIk7r2yyWciiwuLqyPkJiEsWvJkF
 JgBwxSLB4BWc4RyYd6u9Hg1wXzsrZNwTBemmns3dvh4X071k3JTnlg/Xxv/LT2Hb
 eDmgYhtli0t3oPROnf2YAbKBEnWqvu7Udx9t/rwKqjmjKGrk9PEaRpr9txoHCR3D
-vAGKLf9PcfdGo9i9vPdHFTI=`;
+vAGKLf9PcfdGo9i9vPdHFTI=
+-----END CERTIFICATE-----`;
 
 export const handler = async (event: CustomAuthorizerEvent): Promise<CustomAuthorizerResult> => {
     try {
@@ -68,7 +70,7 @@ const verifyToken = (authHeader: string): JwtToken => {
         throw new Error('No authentication header')
     }
 
-    if (!authHeader.toLocaleLowerCase().startsWith('bearer ')) {
+    if (!authHeader.toLowerCase().startsWith('bearer ')) {
         throw new Error('Invalid authentication header')
     }
 
@@ -80,6 +82,6 @@ const verifyToken = (authHeader: string): JwtToken => {
     return verify(
         token, // token from HTTP header to validate
         certificate, // a certificate copied from Auth0 website
-        { algorithm: ['RS256'] } // specify that we use the RS256 algorithm 
+        { algorithms: ['RS256'] } // specify that we use the RS256 algorithm 
     ) as JwtToken
 }

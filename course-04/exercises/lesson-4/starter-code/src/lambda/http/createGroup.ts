@@ -19,7 +19,7 @@ export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGat
   const parsedBody = JSON.parse(event.body)
 
   // get JWT token in an event handler: 
-  const authorization = event.headers.authorization
+  const authorization = event.headers.Authorization
   const split = authorization.split(' ')
   const jwtToken = split[1]
 
