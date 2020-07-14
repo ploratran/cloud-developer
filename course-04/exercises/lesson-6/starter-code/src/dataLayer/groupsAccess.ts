@@ -11,7 +11,7 @@ import { Group } from '../models/Group'
 export class GroupAccess {
 
   constructor(
-    // document client work with DynamoDB 
+    // document client work with DynamoDB locally: 
     private readonly docClient: DocumentClient = createDynamoDBClient(),
     // name of table to store /groups
     private readonly groupsTable = process.env.GROUPS_TABLE
@@ -40,7 +40,7 @@ export class GroupAccess {
   }
 }
 
-// create DynamoDB table locally - not using AWS DynamoDB:
+// create DynamoDB table locally - not using AWS DynamoDB in cloud:
 function createDynamoDBClient() {
   if (process.env.IS_OFFLINE) {
     console.log('Creating a local DynamoDB instance')

@@ -92,6 +92,8 @@ custom:
       port: 8000 # port to run DynamoDB locally 
       inMemory: true # store data in-memory 
       migrate: true # create table according to serverless YAML
+    stages: 
+      - dev # specified stage when run DynamoDB locally 
 
   documentation:
     api:
