@@ -19,7 +19,7 @@ provider:
   runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-east-2'}
 
   # tracing:
   #   lambda: true
@@ -140,7 +140,7 @@ functions:
             requestModels:
               'application/json': GroupRequest
     deploymentSettings: # specify type of canary deployment and name of weighted alias
-      type: Linear10PercentEvery1Minute
+      type: Linear10PercentEvery1Minute # shift 10% every 1 minute
       alias: Live
 
   GetImages:
