@@ -39,7 +39,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - codedeploy:*
+        - codedeploy:* # use code deploy service for canary deployment
       Resource:
         - '*'
     - Effect: Allow
@@ -139,7 +139,7 @@ functions:
             description: Create a new group
             requestModels:
               'application/json': GroupRequest
-    deploymentSettings:
+    deploymentSettings: # specify type of canary deployment and name of weighted alias
       type: Linear10PercentEvery1Minute
       alias: Live
 
