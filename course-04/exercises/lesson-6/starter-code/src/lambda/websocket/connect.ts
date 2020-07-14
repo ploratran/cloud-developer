@@ -21,6 +21,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   console.log('Storing item: ', item)
 
+  // find item in connectionsTable with specifed id and timestamp
   await docClient.put({
     TableName: connectionsTable,
     Item: item
