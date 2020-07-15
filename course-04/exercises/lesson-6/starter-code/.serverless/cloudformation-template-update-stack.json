@@ -299,7 +299,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-RS256Auth",
         "Handler": "src/lambda/auth/rs256Auth0Authorizer.handler",
@@ -313,7 +313,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -350,7 +350,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-HS256Auth",
         "Handler": "src/lambda/auth/auth0Authorizer.handler",
@@ -364,7 +364,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -401,7 +401,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-GetGroups",
         "Handler": "src/lambda/http/getGroups.handler",
@@ -415,7 +415,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -452,7 +452,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-CreateGroup",
         "Handler": "src/lambda/http/createGroup.handler",
@@ -466,7 +466,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -503,7 +503,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-GetImages",
         "Handler": "src/lambda/http/getImages.handler",
@@ -517,7 +517,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -555,7 +555,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-CreateImage",
         "Handler": "src/lambda/http/createImage.handler",
@@ -569,7 +569,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -606,7 +606,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-SendUploadNotifications",
         "Handler": "src/lambda/s3/sendNotifications.handler",
@@ -620,7 +620,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -661,7 +661,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-ResizeImage",
         "Handler": "src/lambda/s3/resizeImage.handler",
@@ -675,7 +675,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -712,7 +712,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-ConnectHandler",
         "Handler": "src/lambda/websocket/connect.handler",
@@ -726,7 +726,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -763,7 +763,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594788870729-2020-07-15T04:54:30.729Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-DisconnectHandler",
         "Handler": "src/lambda/websocket/disconnect.handler",
@@ -777,7 +777,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": 6,
         "TracingConfig": {
-          "Mode": "PassThrough"
+          "Mode": "Active"
         },
         "Environment": {
           "Variables": {
@@ -1171,7 +1171,7 @@
         "Type": "TOKEN"
       }
     },
-    "ApiGatewayDeployment1594786623384": {
+    "ApiGatewayDeployment1594788826932": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
