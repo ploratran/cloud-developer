@@ -120,12 +120,15 @@ functions:
 
   RS256Auth:
     handler: src/lambda/auth/rs256Auth0Authorizer.handler
+    tracing: Active
 
   HS256Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
+    tracing: Active
 
   GetGroups:
     handler: src/lambda/http/getGroups.handler
+    tracing: Active
     events:
       - http:
           method: get
@@ -134,6 +137,7 @@ functions:
 
   CreateGroup:
     handler: src/lambda/http/createGroup.handler
+    tracing: Active
     events:
       - http:
           method: post
@@ -152,6 +156,7 @@ functions:
 
   GetImages:
     handler: src/lambda/http/getImages.handler
+    tracing: Active
     events:
       - http:
           method: get
@@ -169,6 +174,7 @@ functions:
 
   CreateImage:
     handler: src/lambda/http/createImage.handler
+    tracing: Active
     events:
       - http:
           method: post
@@ -188,6 +194,7 @@ functions:
       API_ID:
         Ref: WebsocketsApi
     handler: src/lambda/s3/sendNotifications.handler
+    tracing: Active
     events:
       - sns:
           arn:
@@ -201,6 +208,7 @@ functions:
 
   ResizeImage:
     handler: src/lambda/s3/resizeImage.handler
+    tracing: Active
     events:
       - sns:
           arn:
@@ -214,12 +222,14 @@ functions:
 
   ConnectHandler:
     handler: src/lambda/websocket/connect.handler
+    tracing: Active
     events:
       - websocket:
           route: $connect
 
   DisconnectHandler:
     handler: src/lambda/websocket/disconnect.handler
+    tracing: Active
     events:
       - websocket:
           route: $disconnect

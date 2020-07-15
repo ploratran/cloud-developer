@@ -360,7 +360,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-RS256Auth",
               "Handler": "src/lambda/auth/rs256Auth0Authorizer.handler",
@@ -411,7 +411,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-HS256Auth",
               "Handler": "src/lambda/auth/auth0Authorizer.handler",
@@ -462,7 +462,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-GetGroups",
               "Handler": "src/lambda/http/getGroups.handler",
@@ -513,7 +513,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-CreateGroup",
               "Handler": "src/lambda/http/createGroup.handler",
@@ -564,7 +564,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-GetImages",
               "Handler": "src/lambda/http/getImages.handler",
@@ -616,7 +616,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-CreateImage",
               "Handler": "src/lambda/http/createImage.handler",
@@ -667,7 +667,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-SendUploadNotifications",
               "Handler": "src/lambda/s3/sendNotifications.handler",
@@ -722,7 +722,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-ResizeImage",
               "Handler": "src/lambda/s3/resizeImage.handler",
@@ -773,7 +773,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-ConnectHandler",
               "Handler": "src/lambda/websocket/connect.handler",
@@ -824,7 +824,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z/serverless-udagram-app.zip"
+                "S3Key": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z/serverless-udagram-app.zip"
               },
               "FunctionName": "serverless-udagram-app-dev-DisconnectHandler",
               "Handler": "src/lambda/websocket/disconnect.handler",
@@ -1232,7 +1232,7 @@
               "Type": "TOKEN"
             }
           },
-          "ApiGatewayDeployment1594776587554": {
+          "ApiGatewayDeployment1594786623384": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -2450,6 +2450,7 @@
     "functions": {
       "RS256Auth": {
         "handler": "src/lambda/auth/rs256Auth0Authorizer.handler",
+        "tracing": "Active",
         "events": [],
         "name": "serverless-udagram-app-dev-RS256Auth",
         "package": {
@@ -2463,6 +2464,7 @@
       },
       "HS256Auth": {
         "handler": "src/lambda/auth/auth0Authorizer.handler",
+        "tracing": "Active",
         "events": [],
         "name": "serverless-udagram-app-dev-HS256Auth",
         "package": {
@@ -2476,6 +2478,7 @@
       },
       "GetGroups": {
         "handler": "src/lambda/http/getGroups.handler",
+        "tracing": "Active",
         "events": [
           {
             "http": {
@@ -2516,6 +2519,7 @@
       },
       "CreateGroup": {
         "handler": "src/lambda/http/createGroup.handler",
+        "tracing": "Active",
         "events": [
           {
             "http": {
@@ -2576,6 +2580,7 @@
       },
       "GetImages": {
         "handler": "src/lambda/http/getImages.handler",
+        "tracing": "Active",
         "events": [
           {
             "http": {
@@ -2624,6 +2629,7 @@
       },
       "CreateImage": {
         "handler": "src/lambda/http/createImage.handler",
+        "tracing": "Active",
         "events": [
           {
             "http": {
@@ -2689,6 +2695,7 @@
           }
         },
         "handler": "src/lambda/s3/sendNotifications.handler",
+        "tracing": "Active",
         "events": [
           {
             "sns": {
@@ -2723,6 +2730,7 @@
       },
       "ResizeImage": {
         "handler": "src/lambda/s3/resizeImage.handler",
+        "tracing": "Active",
         "events": [
           {
             "sns": {
@@ -2757,6 +2765,7 @@
       },
       "ConnectHandler": {
         "handler": "src/lambda/websocket/connect.handler",
+        "tracing": "Active",
         "events": [
           {
             "websocket": {
@@ -2776,6 +2785,7 @@
       },
       "DisconnectHandler": {
         "handler": "src/lambda/websocket/disconnect.handler",
+        "tracing": "Active",
         "events": [
           {
             "websocket": {
@@ -3069,7 +3079,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-udagram-app/dev/1594776622345-2020-07-15T01:30:22.345Z",
+    "artifactDirectoryName": "serverless/serverless-udagram-app/dev/1594786658794-2020-07-15T04:17:38.794Z",
     "artifact": ""
   }
 }
