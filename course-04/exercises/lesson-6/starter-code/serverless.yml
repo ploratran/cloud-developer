@@ -121,14 +121,35 @@ functions:
   RS256Auth:
     handler: src/lambda/auth/rs256Auth0Authorizer.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
 
   HS256Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
 
   GetGroups:
     handler: src/lambda/http/getGroups.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: get
@@ -138,6 +159,13 @@ functions:
   CreateGroup:
     handler: src/lambda/http/createGroup.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: post
@@ -171,10 +199,23 @@ functions:
         Action:
           - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
 
   CreateImage:
     handler: src/lambda/http/createImage.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: post
@@ -195,6 +236,13 @@ functions:
         Ref: WebsocketsApi
     handler: src/lambda/s3/sendNotifications.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - sns:
           arn:
@@ -209,6 +257,13 @@ functions:
   ResizeImage:
     handler: src/lambda/s3/resizeImage.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - sns:
           arn:
@@ -223,6 +278,13 @@ functions:
   ConnectHandler:
     handler: src/lambda/websocket/connect.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - websocket:
           route: $connect
@@ -230,6 +292,13 @@ functions:
   DisconnectHandler:
     handler: src/lambda/websocket/disconnect.handler
     tracing: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - websocket:
           route: $disconnect
