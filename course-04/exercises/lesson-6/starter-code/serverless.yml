@@ -236,13 +236,13 @@ functions:
         Ref: WebsocketsApi
     handler: src/lambda/s3/sendNotifications.handler
     tracing: true
-    iamRoleStatements:
-      - Effect: Allow
-        Action: 
-          - "xray:PutTraceSegments"
-          - "xray:PutTelemetryRecords"
-        Resource:
-          - "*"
+    # iamRoleStatements:
+    #   - Effect: Allow
+    #     Action: 
+    #       - "xray:PutTraceSegments"
+    #       - "xray:PutTelemetryRecords"
+    #     Resource:
+    #       - "*"
     events:
       - sns:
           arn:
