@@ -38,12 +38,12 @@ provider:
     AUTH_0_SECRET_FIELD: auth0Secret
 
   iamRoleStatements:
-    - Effect: Allow
-      Action: 
-        - "xray:PutTraceSegments"
-        - "xray:PutTelemetryRecords"
-      Resource:
-        - "*"
+    # - Effect: Allow
+    #   Action: 
+    #     - "xray:PutTraceSegments"
+    #     - "xray:PutTelemetryRecords"
+    #   Resource:
+    #     - "*"
     - Effect: Allow
       Action:
         - codedeploy:* # use code deploy service for canary deployment
@@ -292,13 +292,13 @@ functions:
   DisconnectHandler:
     handler: src/lambda/websocket/disconnect.handler
     tracing: true
-    iamRoleStatements:
-      - Effect: Allow
-        Action: 
-          - "xray:PutTraceSegments"
-          - "xray:PutTelemetryRecords"
-        Resource:
-          - "*"
+    # iamRoleStatements:
+    #   - Effect: Allow
+    #     Action: 
+    #       - "xray:PutTraceSegments"
+    #       - "xray:PutTelemetryRecords"
+    #     Resource:
+    #       - "*"
     events:
       - websocket:
           route: $disconnect
