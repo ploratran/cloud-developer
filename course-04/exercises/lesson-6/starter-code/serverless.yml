@@ -9,6 +9,7 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-dynamodb-local # emulate DynamoDB locally 
   - serverless-offline # emulate API Gateway and AWS Lambda locally 
+  - serverless-plugin-tracing
 
 # Uncomment to enable individual packaging
 # package:
@@ -37,6 +38,12 @@ provider:
     AUTH_0_SECRET_FIELD: auth0Secret
 
   iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
     - Effect: Allow
       Action:
         - codedeploy:* # use code deploy service for canary deployment
