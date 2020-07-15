@@ -6,7 +6,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 // return SDK with same itnerface as AWS SDK
 // but generate sub-segment that will be sent to AWS X-Ray
-const XAWS = AWSXRay.captureAWS(AWS) // debug tool to keep track of user requests
+const XAWS = AWSXRay.captureAWS(AWS) // debug tool for distributed tracing
 
 import { Group } from '../models/Group'
 
