@@ -1,4 +1,4 @@
-export const apiEndpoint = 'https://xl2jzwm28b.execute-api.us-east-2.amazonaws.com/dev/'
+export const apiEndpoint = 'https://xl2jzwm28b.execute-api.us-east-2.amazonaws.com/dev'
 
 // get clientID and Domain from Auth0.com
 export const authConfig = {
