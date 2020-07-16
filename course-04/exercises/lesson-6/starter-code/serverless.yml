@@ -124,10 +124,11 @@ functions:
     handler: src/lambda/http/getGroups.handler
     tracing: true
     iamRoleStatements:
+      # set iam permission to SCAN item in Groups table specifically for this handler
       - Effect: Allow
         Action:
-          - dynamodb:GetItem
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}
+          - dynamodb:Scan
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment. GROUPS_TABLE}
       - Effect: Allow
         Action: 
           - "xray:PutTraceSegments"
