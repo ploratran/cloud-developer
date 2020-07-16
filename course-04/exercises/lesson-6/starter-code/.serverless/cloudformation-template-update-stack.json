@@ -299,7 +299,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-RS256Auth",
         "Handler": "src/lambda/auth/rs256Auth0Authorizer.handler",
@@ -350,7 +350,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-HS256Auth",
         "Handler": "src/lambda/auth/auth0Authorizer.handler",
@@ -401,7 +401,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-GetGroups",
         "Handler": "src/lambda/http/getGroups.handler",
@@ -453,7 +453,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-CreateGroup",
         "Handler": "src/lambda/http/createGroup.handler",
@@ -504,14 +504,14 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-GetImages",
         "Handler": "src/lambda/http/getImages.handler",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
-            "GetImagesIamRoleLambdaExecution",
+            "IamRoleLambdaExecution",
             "Arn"
           ]
         },
@@ -535,7 +535,6 @@
         }
       },
       "DependsOn": [
-        "GetImagesIamRoleLambdaExecution",
         "GetImagesLogGroup"
       ]
     },
@@ -556,14 +555,14 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-CreateImage",
         "Handler": "src/lambda/http/createImage.handler",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
+            "CreateImageIamRoleLambdaExecution",
             "Arn"
           ]
         },
@@ -587,6 +586,7 @@
         }
       },
       "DependsOn": [
+        "CreateImageIamRoleLambdaExecution",
         "CreateImageLogGroup"
       ]
     },
@@ -607,7 +607,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-SendUploadNotifications",
         "Handler": "src/lambda/s3/sendNotifications.handler",
@@ -662,7 +662,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-ResizeImage",
         "Handler": "src/lambda/s3/resizeImage.handler",
@@ -713,7 +713,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-ConnectHandler",
         "Handler": "src/lambda/websocket/connect.handler",
@@ -764,7 +764,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594881470370-2020-07-16T06:37:50.370Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-DisconnectHandler",
         "Handler": "src/lambda/websocket/disconnect.handler",
@@ -1172,7 +1172,7 @@
         "Type": "TOKEN"
       }
     },
-    "ApiGatewayDeployment1594881433241": {
+    "ApiGatewayDeployment1594883625136": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1883,7 +1883,7 @@
         "ManagedPolicyArns": []
       }
     },
-    "GetImagesIamRoleLambdaExecution": {
+    "CreateImageIamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -1925,33 +1925,17 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-udagram-app-dev-GetImages:*:*"
+                      "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-udagram-app-dev-CreateImage:*:*"
                     }
                   ]
                 },
                 {
                   "Effect": "Allow",
                   "Action": [
-                    "dynamodb:Query"
+                    "s3:PutObject",
+                    "s3:GetObject"
                   ],
-                  "Resource": "arn:aws:dynamodb:us-east-2:*:table/Images-dev"
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "dynamodb:GetItem"
-                  ],
-                  "Resource": "arn:aws:dynamodb:us-east-2:*:table/Groups-dev"
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "xray:PutTraceSegments",
-                    "xray:PutTelemetryRecords"
-                  ],
-                  "Resource": [
-                    "*"
-                  ]
+                  "Resource": "arn:aws:s3:::serverless-udagram-images-ab4ff-dev/*"
                 }
               ]
             }
@@ -1964,7 +1948,7 @@
             [
               "serverless-udagram-app",
               "dev",
-              "GetImages",
+              "CreateImage",
               {
                 "Ref": "AWS::Region"
               },

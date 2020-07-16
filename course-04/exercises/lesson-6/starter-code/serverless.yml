@@ -124,11 +124,11 @@ functions:
     handler: src/lambda/http/getGroups.handler
     tracing: true
     iamRoleStatements:
-      # set iam permission to SCAN item in Groups table specifically for this handler
+      # set iam permission to SCAN item in Groups table specifically for this handlers
       - Effect: Allow
         Action:
           - dynamodb:Scan
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment. GROUPS_TABLE}
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}
       - Effect: Allow
         Action: 
           - "xray:PutTraceSegments"
@@ -167,7 +167,6 @@ functions:
           method: get
           path: groups/{groupId}/images
           cors: true
-    iamRoleStatements:
       - Effect: Allow
         Action:
           - dynamodb:Query
@@ -185,6 +184,12 @@ functions:
 
   CreateImage:
     handler: src/lambda/http/createImage.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+          - s3:GetObject
+        Resource: "arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}/*"  
     events:
       - http:
           method: post
