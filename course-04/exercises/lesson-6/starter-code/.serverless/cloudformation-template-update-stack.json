@@ -299,7 +299,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-RS256Auth",
         "Handler": "src/lambda/auth/rs256Auth0Authorizer.handler",
@@ -333,14 +333,14 @@
         "RS256AuthLogGroup"
       ]
     },
-    "RS256AuthLambdaVersionmMQkvrsI0zu7bygLWNHQNxqVLPWTqJews1hw0k4": {
+    "RS256AuthLambdaVersion04dBlkKAuukBBEzHhnDKtlo2iqtcr9fqiy3QJQnh8": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "RS256AuthLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "HS256AuthLambdaFunction": {
@@ -350,7 +350,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-HS256Auth",
         "Handler": "src/lambda/auth/auth0Authorizer.handler",
@@ -384,14 +384,14 @@
         "HS256AuthLogGroup"
       ]
     },
-    "HS256AuthLambdaVersionTtNQjam0FQK4gFGKSUHV9b2MBAfkSD2lovQT7fgU": {
+    "HS256AuthLambdaVersiong1jP1T39lRKPsBjgExz1H5FfuT5wUo2mJxVHcYYJvn0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HS256AuthLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "GetGroupsLambdaFunction": {
@@ -401,7 +401,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-GetGroups",
         "Handler": "src/lambda/http/getGroups.handler",
@@ -436,14 +436,14 @@
         "GetGroupsLogGroup"
       ]
     },
-    "GetGroupsLambdaVersionyv4QRQsIl6WdoS5qs03X36JhaqTpc6OG52GCjKtJNUs": {
+    "GetGroupsLambdaVersionqWZAwdSleSMmZSJx3lB1qbtTfsvir5yX8fdFlGv1YoU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetGroupsLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "CreateGroupLambdaFunction": {
@@ -453,7 +453,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-CreateGroup",
         "Handler": "src/lambda/http/createGroup.handler",
@@ -487,14 +487,14 @@
         "CreateGroupLogGroup"
       ]
     },
-    "CreateGroupLambdaVersion4MEh1rbQg69oj3nVUSedbw7HViIOS0Jo3esx9I8kkQ": {
+    "CreateGroupLambdaVersionkoFdj6A5Z46BmpNVyKREb30DxwRC446YtHcXgYXTM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateGroupLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "GetImagesLambdaFunction": {
@@ -504,14 +504,14 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-GetImages",
         "Handler": "src/lambda/http/getImages.handler",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
+            "GetImagesIamRoleLambdaExecution",
             "Arn"
           ]
         },
@@ -535,17 +535,18 @@
         }
       },
       "DependsOn": [
+        "GetImagesIamRoleLambdaExecution",
         "GetImagesLogGroup"
       ]
     },
-    "GetImagesLambdaVersioncgz4u6veGosGIlALOeV2JC8WwtBqnyd9MaYmLEtI8": {
+    "GetImagesLambdaVersionkw6WnBytUZHIFGwX3IhZJa5lBObc8IHIfGGr9W2c": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetImagesLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "CreateImageLambdaFunction": {
@@ -555,14 +556,14 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-CreateImage",
         "Handler": "src/lambda/http/createImage.handler",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
-            "CreateImageIamRoleLambdaExecution",
+            "IamRoleLambdaExecution",
             "Arn"
           ]
         },
@@ -586,18 +587,17 @@
         }
       },
       "DependsOn": [
-        "CreateImageIamRoleLambdaExecution",
         "CreateImageLogGroup"
       ]
     },
-    "CreateImageLambdaVersionCLkYdhgEbJyajA1aPqiOZmgy29Ieaw1TPsz7hams2A": {
+    "CreateImageLambdaVersion66L9hJseaalE5MmjnNmd02BpRVh1oWVRMrDqdTLyK9E": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateImageLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "SendUploadNotificationsLambdaFunction": {
@@ -607,7 +607,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-SendUploadNotifications",
         "Handler": "src/lambda/s3/sendNotifications.handler",
@@ -645,14 +645,14 @@
         "SendUploadNotificationsLogGroup"
       ]
     },
-    "SendUploadNotificationsLambdaVersionlzlDNbUIgzwxRcUpUPMEjp41z3J8PDLFuhhsS1S520": {
+    "SendUploadNotificationsLambdaVersion1yJ0bK3GIiWnFPQhybruEhLg1SWL2stMUwWztbg0Y": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SendUploadNotificationsLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "ResizeImageLambdaFunction": {
@@ -662,7 +662,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-ResizeImage",
         "Handler": "src/lambda/s3/resizeImage.handler",
@@ -696,14 +696,14 @@
         "ResizeImageLogGroup"
       ]
     },
-    "ResizeImageLambdaVersionqpYzyDn3YmpkVinmQR68XA3Uibilg8OG8veoxCcDmmc": {
+    "ResizeImageLambdaVersionlFrUrxLowTRniI9RP8dM4RTtvz6qW9NUBF44E0UVD5M": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ResizeImageLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "ConnectHandlerLambdaFunction": {
@@ -713,7 +713,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-ConnectHandler",
         "Handler": "src/lambda/websocket/connect.handler",
@@ -747,14 +747,14 @@
         "ConnectHandlerLogGroup"
       ]
     },
-    "ConnectHandlerLambdaVersionCTQb5QDEQ3HV12o9SppHXzYtGMhTsx9QOEgItxE": {
+    "ConnectHandlerLambdaVersionYwbu8Hr225apNskKrsVTrsLtCJNDJGTP8qE2HuLdQuY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ConnectHandlerLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "DisconnectHandlerLambdaFunction": {
@@ -764,7 +764,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-udagram-app/dev/1594883659102-2020-07-16T07:14:19.102Z/serverless-udagram-app.zip"
+          "S3Key": "serverless/serverless-udagram-app/dev/1594887607380-2020-07-16T08:20:07.380Z/serverless-udagram-app.zip"
         },
         "FunctionName": "serverless-udagram-app-dev-DisconnectHandler",
         "Handler": "src/lambda/websocket/disconnect.handler",
@@ -798,14 +798,14 @@
         "DisconnectHandlerLogGroup"
       ]
     },
-    "DisconnectHandlerLambdaVersionpBuwNfC8fuNecCO18glGfadR1DN1rIms07AqXED3H98": {
+    "DisconnectHandlerLambdaVersion7EkEn6AWs6m64I8nKxc42HeOenXyLERS5LdiPa9Hs": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DisconnectHandlerLambdaFunction"
         },
-        "CodeSha256": "X3Ibn3CMn+LpPn5AGCoXvjAjXT6C/ZLGl90OdbTELSs="
+        "CodeSha256": "E2mz5FzQ8tQzWy0u+lTjZ13UpBhbt/P+mdiEpaQDols="
       }
     },
     "ApiGatewayRestApi": {
@@ -1172,7 +1172,7 @@
         "Type": "TOKEN"
       }
     },
-    "ApiGatewayDeployment1594883625136": {
+    "ApiGatewayDeployment1594887564199": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1778,7 +1778,7 @@
       "Properties": {
         "FunctionVersion": {
           "Fn::GetAtt": [
-            "CreateGroupLambdaVersion4MEh1rbQg69oj3nVUSedbw7HViIOS0Jo3esx9I8kkQ",
+            "CreateGroupLambdaVersionkoFdj6A5Z46BmpNVyKREb30DxwRC446YtHcXgYXTM",
             "Version"
           ]
         },
@@ -1883,7 +1883,7 @@
         "ManagedPolicyArns": []
       }
     },
-    "CreateImageIamRoleLambdaExecution": {
+    "GetImagesIamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -1925,7 +1925,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-udagram-app-dev-CreateImage:*:*"
+                      "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-udagram-app-dev-GetImages:*:*"
                     }
                   ]
                 },
@@ -1936,6 +1936,30 @@
                     "s3:GetObject"
                   ],
                   "Resource": "arn:aws:s3:::serverless-udagram-images-ab4ff-dev/*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:Query"
+                  ],
+                  "Resource": "arn:aws:dynamodb:us-east-2:*:table/Images-dev"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:GetItem"
+                  ],
+                  "Resource": "arn:aws:dynamodb:us-east-2:*:table/Groups-dev"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "xray:PutTraceSegments",
+                    "xray:PutTelemetryRecords"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
                 }
               ]
             }
@@ -1948,7 +1972,7 @@
             [
               "serverless-udagram-app",
               "dev",
-              "CreateImage",
+              "GetImages",
               {
                 "Ref": "AWS::Region"
               },
@@ -2234,61 +2258,61 @@
     "RS256AuthLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "RS256AuthLambdaVersionmMQkvrsI0zu7bygLWNHQNxqVLPWTqJews1hw0k4"
+        "Ref": "RS256AuthLambdaVersion04dBlkKAuukBBEzHhnDKtlo2iqtcr9fqiy3QJQnh8"
       }
     },
     "HS256AuthLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HS256AuthLambdaVersionTtNQjam0FQK4gFGKSUHV9b2MBAfkSD2lovQT7fgU"
+        "Ref": "HS256AuthLambdaVersiong1jP1T39lRKPsBjgExz1H5FfuT5wUo2mJxVHcYYJvn0"
       }
     },
     "GetGroupsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetGroupsLambdaVersionyv4QRQsIl6WdoS5qs03X36JhaqTpc6OG52GCjKtJNUs"
+        "Ref": "GetGroupsLambdaVersionqWZAwdSleSMmZSJx3lB1qbtTfsvir5yX8fdFlGv1YoU"
       }
     },
     "CreateGroupLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateGroupLambdaVersion4MEh1rbQg69oj3nVUSedbw7HViIOS0Jo3esx9I8kkQ"
+        "Ref": "CreateGroupLambdaVersionkoFdj6A5Z46BmpNVyKREb30DxwRC446YtHcXgYXTM"
       }
     },
     "GetImagesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetImagesLambdaVersioncgz4u6veGosGIlALOeV2JC8WwtBqnyd9MaYmLEtI8"
+        "Ref": "GetImagesLambdaVersionkw6WnBytUZHIFGwX3IhZJa5lBObc8IHIfGGr9W2c"
       }
     },
     "CreateImageLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateImageLambdaVersionCLkYdhgEbJyajA1aPqiOZmgy29Ieaw1TPsz7hams2A"
+        "Ref": "CreateImageLambdaVersion66L9hJseaalE5MmjnNmd02BpRVh1oWVRMrDqdTLyK9E"
       }
     },
     "SendUploadNotificationsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SendUploadNotificationsLambdaVersionlzlDNbUIgzwxRcUpUPMEjp41z3J8PDLFuhhsS1S520"
+        "Ref": "SendUploadNotificationsLambdaVersion1yJ0bK3GIiWnFPQhybruEhLg1SWL2stMUwWztbg0Y"
       }
     },
     "ResizeImageLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ResizeImageLambdaVersionqpYzyDn3YmpkVinmQR68XA3Uibilg8OG8veoxCcDmmc"
+        "Ref": "ResizeImageLambdaVersionlFrUrxLowTRniI9RP8dM4RTtvz6qW9NUBF44E0UVD5M"
       }
     },
     "ConnectHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ConnectHandlerLambdaVersionCTQb5QDEQ3HV12o9SppHXzYtGMhTsx9QOEgItxE"
+        "Ref": "ConnectHandlerLambdaVersionYwbu8Hr225apNskKrsVTrsLtCJNDJGTP8qE2HuLdQuY"
       }
     },
     "DisconnectHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DisconnectHandlerLambdaVersionpBuwNfC8fuNecCO18glGfadR1DN1rIms07AqXED3H98"
+        "Ref": "DisconnectHandlerLambdaVersion7EkEn6AWs6m64I8nKxc42HeOenXyLERS5LdiPa9Hs"
       }
     },
     "ServiceEndpoint": {
