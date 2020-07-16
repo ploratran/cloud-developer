@@ -3,6 +3,10 @@ import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } f
 import 'source-map-support/register'
 import { getAllGroups } from '../../businessLogic/groups';
 
+// use Express with AWS Lambda: 
+// import * as express from 'express';
+// import * as awsServerlessExpress from 'aws-serverless-express'; 
+
 // handler to get all groups: 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Processing event: ', event)

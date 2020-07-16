@@ -6,12 +6,14 @@ plugins:
   - serverless-reqvalidator-plugin
   - serverless-aws-documentation
   - serverless-plugin-canary-deployments
-  - serverless-iam-roles-per-function
+  - serverless-iam-roles-per-function # set iam role for each function
   - serverless-dynamodb-local # emulate DynamoDB locally 
   - serverless-offline # emulate API Gateway and AWS Lambda locally 
   - serverless-plugin-tracing
 
 # Uncomment to enable individual packaging
+# optimize function size => smaller function size 
+# let webpack create separate zip package for each function in serverless.yml
 # package:
 #   individually: true
 
