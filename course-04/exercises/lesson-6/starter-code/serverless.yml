@@ -169,6 +169,11 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
+          - s3:PutObject
+          - s3:GetObject
+        Resource: "arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}/*"
+      - Effect: Allow
+        Action:
           - dynamodb:Query
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.IMAGES_TABLE}
@@ -186,12 +191,12 @@ functions:
 
   CreateImage:
     handler: src/lambda/http/createImage.handler 
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - s3:PutObject
-          - s3:GetObject
-        Resource: "arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}/*" 
+    # iamRoleStatements:
+    #   - Effect: Allow
+    #     Action:
+    #       - s3:PutObject
+    #       - s3:GetObject
+    #     Resource: "arn:aws:s3:::${self:provider.environment.IMAGES_S3_BUCKET}/*" 
     events:
       - http:
           method: post
