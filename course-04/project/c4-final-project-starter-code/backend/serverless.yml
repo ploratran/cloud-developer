@@ -3,18 +3,38 @@ service:
 
 plugins:
   - serverless-webpack
-  - serverless-iam-roles-per-function
+  - serverless-iam-roles-per-function # define iam role for each particular functions
+  - serverless-plugin-tracing
+  - serverless-aws-documentation # use for document info of app
+  - serverless-reqvalidator-plugin # validate request body
+  - serverless-plugin-canary-deployments 
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-east-2'}
+
+  tracing: 
+    lambda: true
+    apiGateway: true
+
+  # Dynamodb Tables: 
+  environment: 
+    TODOS_TABLE: Todos-${self:provider.stage}
+
+custom: 
+  documentation: 
+    api: 
+      info: 
+        version: v1.0.0
+        title: Todos API
+        description: Serverless exercise for todos list
 
 functions:
 
-  Auth:
+  RS256Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
   # TODO: Configure this function
@@ -24,15 +44,18 @@ functions:
       - http:
           method: get
           path: todos
+          cors: true
+          authorizer: RS256Auth
 
   # TODO: Configure this function
-  GetTodos:
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
       - http:
           method: post
           path: todos
+          cors: true
+          authorizer: RS256Auth
 
   # TODO: Configure this function
   UpdateTodo:
@@ -41,6 +64,8 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+          cors: true
+          authorizer: RS256Auth
 
   # TODO: Configure this function
   DeleteTodo:
@@ -57,6 +82,8 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
+          cors: true
+          authorizer: RS256Auth
 
 resources:
   Resources:

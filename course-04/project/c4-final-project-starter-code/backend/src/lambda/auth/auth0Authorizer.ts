@@ -5,7 +5,7 @@ import { verify, decode } from 'jsonwebtoken'
 import { createLogger } from '../../utils/logger' // winston logger
 import axios, { AxiosRequestConfig } from 'axios'
 import { Jwt } from '../../auth/Jwt' // interface of JWT
-import { JwtPayload } from '../../auth/JwtPayload' // interface of JWT payload
+import { JwtPayload } from '../../auth/JwtPayload' // return type of verified token
 
 const logger = createLogger('auth')
 
@@ -18,6 +18,7 @@ export const handler = async (event: CustomAuthorizerEvent): Promise<CustomAutho
   logger.info('Authorizing a user', event.authorizationToken)
 
   try {
+    // verified passed in token from event authorization
     const jwtToken = await verifyToken(event.authorizationToken)
     logger.info('User was authorized', jwtToken)
 
@@ -64,17 +65,23 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
   // TODO: Implement token verification
   // You should implement it similarly to how it was implemented for the exercise for the lesson 5
   // You can read more about how to do this here: https://auth0.com/blog/navigating-rs256-and-jwks/
-  let certificate; 
+  const jwks = await axios.get(jwksUrl)
 
-  axios.get('jwksUrl', (err, cert) => {
-    if (err) { throw new Error('Error fetching JWKS certificate') }
-    else {
-      certificate = cert,
-    } 
-  })
+  // // try to log jwks metadata: 
+  logger.info('Get jwks : ' + jwks); 
+  console.log(jwks);
 
+  // // JSON Web Key Set Properties: https://auth0.com/docs/tokens/references/jwks-properties
+  // // get the x5c: x509 certificate chain use for token verification
+  const x5c = jwks['data']['keys'][0]['x5c'][0]
+  const certificate = `-----BEGIN CERTIFICATE-----\n${x5c}\n-----END CERTIFICATE-----`
+
+  // /**
+  //  * @params: decode JWT token payload
+  //  * @params: secret or certificate or private key
+  //  * @params: option(algorithm type) or callback
+  //  */
   return verify(jwt.payload.iss, certificate, { algorithms: ['RS256'] }) as JwtPayload
-  return undefined
 }
 
 // get jwtToken after the word 'Bearer '
