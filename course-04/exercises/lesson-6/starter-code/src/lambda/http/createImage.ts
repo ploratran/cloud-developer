@@ -8,7 +8,6 @@ import * as AWSXRay from 'aws-xray-sdk'
 
 const XAWS = AWSXRay.captureAWS(AWS)
 
-
 const docClient = new XAWS.DynamoDB.DocumentClient()
 const s3 = new XAWS.S3({
   signatureVersion: 'v4'
@@ -36,7 +35,8 @@ export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGat
   const imageId = uuid.v4()
   const newItem = await createImage(groupId, imageId, event)
 
-  const url = getUploadUrl(imageId)
+  const url = await getUploadUrl(imageId)
+  console.log(url);
 
   return {
     statusCode: 201,
@@ -95,6 +95,7 @@ function getUploadUrl(imageId: string) {
   return s3.getSignedUrl('putObject', {
     Bucket: bucketName,
     Key: imageId,
-    Expires: urlExpiration
+    Expires: 300
+    // Expires: +urlExpiration
   })
 }
