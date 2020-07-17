@@ -19,6 +19,7 @@ export const makeAuthRouting = () => {
   return (
     <Router history={history}>
       <div>
+        {/* Process redirect from Auth0 */}
         <Route
           path="/callback"
           render={props => {
@@ -26,6 +27,7 @@ export const makeAuthRouting = () => {
             return <Callback />
           }}
         />
+        {/* Route to process any other URL */}
         <Route
           render={props => {
             return <App auth={auth} {...props} />
