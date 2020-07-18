@@ -144,6 +144,15 @@ To implement authentication in your application, you would have to create an Aut
 
 To complete this exercise, please follow the best practices from the 6th lesson of this course.
 
+## Order to Implement: 
+
+- Start with: 
+
+1. Data Access Layer
+2. Business Logic
+3. Lambda function
+4. Deploy with Serverless
+
 ## Logging
 
 The starter code comes with a configured [Winston](https://github.com/winstonjs/winston) logger that creates [JSON formatted](https://stackify.com/what-is-structured-logging-and-why-developers-need-it/) log statements. You can use it to write log messages like this:
