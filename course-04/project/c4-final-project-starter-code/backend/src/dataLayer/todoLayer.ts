@@ -18,16 +18,16 @@ export class TodoLayer {
     ) {}
     
     // insert new item into Todos talbe: 
-    async createTodo(todo: TodoItem): Promise<TodoItem> {
-        logger.info(`Save new ${todo.todoId} into ${this.todosTable}`)
+    // async createTodo(todo: TodoItem): Promise<TodoItem> {
+    //     logger.info(`Save new ${todo.todoId} into ${this.todosTable}`)
 
-        await this.docClient.put({
-            TableName: this.todosTable,
-            Item: todo
-        }).promise()
+    //     await this.docClient.put({
+    //         TableName: this.todosTable,
+    //         Item: todo
+    //     }).promise()
 
-        return todo
-    }
+    //     return todo
+    // }
 
     // get todos list based on userId
     // todo list is an array so return TodoItem[]
