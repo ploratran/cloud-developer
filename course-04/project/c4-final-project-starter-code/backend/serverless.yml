@@ -52,6 +52,10 @@ functions:
   GetTodos:
     handler: src/lambda/http/getTodos.handler
     iamRoleStatements:
+      - Effect: Allow # permission to Query table
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
       - Effect: "Allow" # xray permissions (required) 
         Action:
           - "xray:PutTraceSegments"
@@ -64,6 +68,7 @@ functions:
           path: todos
           cors: true
           authorizer: RS256Auth
+          reqValidatorName: RequestBodyValidator
 
   # TODO: Configure this function
   CreateTodo:
@@ -190,7 +195,7 @@ resources:
       Properties:
         PolicyDocument:
           Id: MyPolicy
-          Version: "2012-10-17"
+          Version: '2012-10-17'
           Statement:
             - Sid: PublicReadForGetBucketObjects
               Effect: Allow
@@ -204,16 +209,17 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: userId
+          - AttributeName: userId # partition key
             AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
-          - AttributeName: todoId
+          - AttributeName: todoId # sort key
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
+          # 1:M (One user -> Many todos)
+          - AttributeName: userId # partition key
             KeyType: HASH
-          - AttributeName: todoId
+          - AttributeName: todoId # sort key
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.TODOS_TABLE}
