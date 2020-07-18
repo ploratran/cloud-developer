@@ -23,7 +23,7 @@ provider:
   # Dynamodb Tables: 
   environment: 
     TODOS_TABLE: Todos-${self:provider.stage}
-    T0DOS_S3_BUCKET: ploratran-todos-images-ab4ff-${self:provider.stage}
+    TODOS_S3_BUCKET: ploratran-todos-images-ab4ff-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     USER_ID_INDEX: UserIdIndex
 
@@ -141,7 +141,7 @@ resources:
     # TODO: Add any necessary AWS resources
     # 1) Validate Request Body: 
     RequestBodyValidator:
-      Type: AWS::ApiGateway::RequestBodyValidator
+      Type: AWS::ApiGateway::RequestValidator
       Properties: 
         Name: 'request-body-validator'
         RestApiId:
@@ -152,25 +152,20 @@ resources:
     # 2) Response from 400+ error: 
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
-      Properties: 
+      Properties:
         ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "*"
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
           gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'*'"
         ResponseType: DEFAULT_4XX
-        RestApiId: 
+        RestApiId:
           Ref: ApiGatewayRestApi
 
     # 3) Configure S3 Bucket Attachment and Policy: 
     AttachmentsBucket:
       Type: AWS::S3::Bucket
-      DependsOn: SNSTopicPolicy
       Properties:
         BucketName: ${self:provider.environment.TODOS_S3_BUCKET}
-        NotificationConfiguration:
-          TopicConfigurations:
-            - Event: s3:ObjectCreated:Put
-              Topic: !Ref ImagesTopic
         CorsConfiguration:
           CorsRules:
             -
@@ -197,32 +192,33 @@ resources:
               Effect: Allow
               Principal: '*'
               Action: 's3:GetObject'
-              Resource: 'arn:aws:s3:::${self:provider.environment.T0DOS_S3_BUCKET}/*'
+              Resource: 'arn:aws:s3:::${self:provider.environment.TODOS_S3_BUCKET}/*'
         Bucket: !Ref AttachmentsBucket
     
     # 4) Todos DymamoDB Table: 
-    TodosDynamoDBTable: 
+    TodosDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        AttributeDefinitions: 
-          - AttributeName: todoId
+        AttributeDefinitions:
+          - AttributeName: userId
             AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
-          - AttributeName: userId
+          - AttributeName: todoId
             AttributeType: S
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
           - AttributeName: todoId
-            KeyType: RANGE 
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.TODOS_TABLE}
-
-        GlobalSecondaryIndexes:
+        LocalSecondaryIndexes:
           - IndexName: ${self:provider.environment.USER_ID_INDEX}
             KeySchema:
-            - AttributeName: userId
-              KeyType: HASH
+              - AttributeName: userId
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
             Projection:
-              ProjectionType: ALL
+              ProjectionType: ALL # What attributes will be copied to an index
