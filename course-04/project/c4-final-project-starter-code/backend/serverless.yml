@@ -63,6 +63,7 @@ functions:
           path: todos
           cors: true
           authorizer: RS256Auth
+          reqValidatorName: RequestBodyValidator
           documentation: 
             summary: Create a new todo
             description: Create a new todo
@@ -78,6 +79,7 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: RS256Auth
+          reqValidatorName: RequestBodyValidator
           documentation: 
             summary: Update a new todo
             description: Update a new todo
@@ -105,3 +107,25 @@ functions:
 resources:
   Resources:
     # TODO: Add any necessary AWS resources
+    # 1) Validate Request Body: 
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestBodyValidator
+      Properties: 
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
+
+    # 2) Response from 400+ error: 
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties: 
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "*"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+        ResponseType: DEFAULT_4XX
+        RestApiId: 
+          Ref: ApiGatewayRestApi
+
