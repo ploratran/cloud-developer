@@ -51,6 +51,13 @@ functions:
   # TODO: Configure this function
   GetTodos:
     handler: src/lambda/http/getTodos.handler
+    iamRoleStatements:
+      - Effect: "Allow" # xray permissions (required) 
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: get
@@ -61,6 +68,13 @@ functions:
   # TODO: Configure this function
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
+    iamRoleStatements:
+      - Effect: "Allow" # xray permissions (required) 
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: post
@@ -77,6 +91,13 @@ functions:
   # TODO: Configure this function
   UpdateTodo:
     handler: src/lambda/http/updateTodo.handler
+    iamRoleStatements:
+      - Effect: "Allow" # xray permissions (required) 
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: patch
@@ -93,6 +114,13 @@ functions:
   # TODO: Configure this function
   DeleteTodo:
     handler: src/lambda/http/deleteTodo.handler
+    iamRoleStatements:
+      - Effect: "Allow" # xray permissions (required) 
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: delete
@@ -138,7 +166,7 @@ resources:
       Type: AWS::S3::Bucket
       DependsOn: SNSTopicPolicy
       Properties:
-        BucketName: ${self:provider.environment.IMAGES_S3_BUCKET}
+        BucketName: ${self:provider.environment.TODOS_S3_BUCKET}
         NotificationConfiguration:
           TopicConfigurations:
             - Event: s3:ObjectCreated:Put
