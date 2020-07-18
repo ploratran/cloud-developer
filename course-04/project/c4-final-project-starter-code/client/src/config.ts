@@ -5,6 +5,6 @@ export const apiEndpoint = `https://${apiId}.execute-api.us-east-2.amazonaws.com
 export const authConfig = {
   // TODO: Create an Auth0 application and copy values from it into this map
   domain: 'dev-a6-tsbmc.us.auth0.com', // Auth0 domain
-  clientId: 'hFGLqXuYSN3KoAWpImwodFNiJnsXA0XF',          // Auth0 client id
+  clientId: 'hFGLqXuYSN3KoAWpImwodFNiJnsXA0XF', // Auth0 client id
   callbackUrl: 'http://localhost:3000/callback'
 }
