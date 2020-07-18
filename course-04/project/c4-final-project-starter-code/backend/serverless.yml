@@ -23,6 +23,8 @@ provider:
   # Dynamodb Tables: 
   environment: 
     TODOS_TABLE: Todos-${self:provider.stage}
+    T0DOS_S3_BUCKET: ploratran-todos-images-ab4ff-${self:provider.stage}
+    SIGNED_URL_EXPIRATION: 300
 
 custom: 
   documentation: 
@@ -31,6 +33,7 @@ custom:
         version: v1.0.0
         title: Todos API
         description: Serverless exercise for todos list
+    # JSON Schema to validate HTTP request using serverless-reqvalidator-plugin
     models: 
       - name: CreateRequest
         contentType: application/json
@@ -129,3 +132,41 @@ resources:
         RestApiId: 
           Ref: ApiGatewayRestApi
 
+    # 3) Configure S3 Bucket Attachment and Policy: 
+    AttachmentsBucket:
+      Type: AWS::S3::Bucket
+      DependsOn: SNSTopicPolicy
+      Properties:
+        BucketName: ${self:provider.environment.IMAGES_S3_BUCKET}
+        NotificationConfiguration:
+          TopicConfigurations:
+            - Event: s3:ObjectCreated:Put
+              Topic: !Ref ImagesTopic
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+    
+    BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Id: MyPolicy
+          Version: "2012-10-17"
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.T0DOS_S3_BUCKET}/*'
+        Bucket: !Ref AttachmentsBucket
