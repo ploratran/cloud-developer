@@ -16,18 +16,6 @@ export class TodoLayer {
       // name of table to store /groups
       private readonly todosTable = process.env.TODOS_TABLE
     ) {}
-    
-    // insert new item into Todos talbe: 
-    async createTodo(todo: TodoItem): Promise<TodoItem> {
-        logger.info(`Save new ${todo.todoId} into ${this.todosTable}`)
-
-        await this.docClient.put({
-            TableName: this.todosTable,
-            Item: todo
-        }).promise()
-
-        return todo
-    }
 
     // get todos list based on userId
     // todo list is an array so return TodoItem[]
@@ -41,7 +29,20 @@ export class TodoLayer {
             ExpressionAttributeValues: { ':userId': userId }
         }).promise()
 
+        // return todos as array of objects
         const todos = result.Items;
         return todos as TodoItem[]
+    }
+    
+    // insert new item into Todos talbe: 
+    async createTodo(todo: TodoItem): Promise<TodoItem> {
+        logger.info(`Save new ${todo.name} into ${this.todosTable}`)
+
+        await this.docClient.put({
+            TableName: this.todosTable,
+            Item: todo
+        }).promise()
+
+        return todo
     }
 }

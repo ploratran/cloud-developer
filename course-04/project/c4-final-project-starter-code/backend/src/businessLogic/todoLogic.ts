@@ -10,8 +10,19 @@ const logger = createLogger('auth')
 // initialize new object from TodoAccess class: 
 const todoLayer = new TodoLayer()
 
+// find todo list by userId from JwtToken
+export async function getTodoList(jwtToken: string): Promise<TodoItem[]> {
+    logger.info('get Todo List in Business Logic')
+    const userId = parseUserId(jwtToken); 
+    return todoLayer.getTodos(userId);
+}
+
+
 // create todo with corresponding userId: 
-export async function createTodo(createTodoRequest: CreateTodoRequest, jwtToken: string): Promise<TodoItem> {
+export async function createTodo(
+    createTodoRequest: CreateTodoRequest, 
+    jwtToken: string
+): Promise<TodoItem> {
 
     logger.info(`Insert New Todo item`);
 
@@ -27,11 +38,4 @@ export async function createTodo(createTodoRequest: CreateTodoRequest, jwtToken:
         done: false,
         ...createTodoRequest, // name and dueDate
     })
-}
-
-// find todo list by userId from JwtToken
-export async function getTodoList(jwtToken: string): Promise<TodoItem[]> {
-    logger.info('get Todo List in Business Logic')
-    const userId = parseUserId(jwtToken); 
-    return todoLayer.getTodos(userId);
 }

@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
     // pass in jwtToken to getTodoList
     // so todolist fetch will be based on userId
-    const todoList = await getTodoList(jwtToken)
+    const todoList = await getTodoList(jwtToken); 
 
     return {
         statusCode: 200, 

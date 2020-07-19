@@ -6,6 +6,7 @@ import { createTodo } from '../../businessLogic/todoLogic'
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     console.log('Processing events: ', event); 
 
+    // create a single todo item with name and due date properties:
     const newTodo: CreateTodoRequest = JSON.parse(event.body)
 
     // TODO: Implement creating a new TODO item
