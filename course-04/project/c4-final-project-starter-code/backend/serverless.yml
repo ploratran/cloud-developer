@@ -129,6 +129,10 @@ functions:
   DeleteTodo:
     handler: src/lambda/http/deleteTodo.handler
     iamRoleStatements:
+      - Effect: "Allow"
+        Action: 
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
       - Effect: "Allow" # xray permissions (required) 
         Action:
           - "xray:PutTraceSegments"

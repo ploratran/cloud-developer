@@ -77,4 +77,15 @@ export class TodoLayer {
             }
         }).promise()
     }
+
+    // delete todo item created by userId with todoId: 
+    async deleteTodo(userId: string, todoId: string) {
+        logger.info(`Delete item with id ${todoId}`); 
+
+        await this.docClient.delete({
+            TableName: this.todosTable, 
+            // delete based on Key: userId and todoId: 
+            Key: { "userId": userId, "todoId": todoId }
+        }).promise()
+    }
 }

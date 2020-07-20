@@ -48,3 +48,11 @@ export async function updateTodoItem(
 ) {
     await todoLayer.updateTodo(parseUserId(jwtToken), todoId, updateTodoItem);
 }
+
+// delete todo item with userId and todoId:
+export async function deleteTodoItem(
+    jwtToken: string,
+    todoId: string,
+) {
+    await todoLayer.deleteTodo(parseUserId(jwtToken), todoId);
+}
