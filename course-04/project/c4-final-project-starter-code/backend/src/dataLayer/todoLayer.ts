@@ -14,7 +14,8 @@ export class TodoLayer {
       // document client work with DynamoDB locally: 
       private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
       // name of table to store /groups
-      private readonly todosTable = process.env.TODOS_TABLE
+      private readonly todosTable = process.env.TODOS_TABLE,
+      private readonly indexTable = process.env.INDEX_TABLE
     ) {}
 
     // get todos list based on userId
@@ -25,8 +26,10 @@ export class TodoLayer {
         // use query() instead of scan(): 
         const result = await this.docClient.query({
             TableName: this.todosTable,
+            IndexName: this.indexTable, // query from Index table for faster retrival
             KeyConditionExpression: 'userId = :userId', 
-            ExpressionAttributeValues: { ':userId': userId }
+            ExpressionAttributeValues: { ':userId': userId },
+            ScanIndexForward: false // get result with latest todo on top
         }).promise()
 
         // return todos as array of objects
@@ -43,6 +46,6 @@ export class TodoLayer {
             Item: todo
         }).promise()
 
-        return todo
+        return todo as TodoItem
     }
 }

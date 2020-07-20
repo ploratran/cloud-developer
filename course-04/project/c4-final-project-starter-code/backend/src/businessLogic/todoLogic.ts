@@ -20,7 +20,7 @@ export async function getTodoList(jwtToken: string): Promise<TodoItem[]> {
 
 // create todo with corresponding userId: 
 export async function createTodo(
-    createTodoRequest: CreateTodoRequest, 
+    newTodo: CreateTodoRequest, 
     jwtToken: string
 ): Promise<TodoItem> {
 
@@ -36,6 +36,6 @@ export async function createTodo(
         todoId: itemId,
         createdAt: new Date().toISOString(),
         done: false,
-        ...createTodoRequest, // name and dueDate
-    })
+        ...newTodo, // name and dueDate
+    }) as TodoItem
 }

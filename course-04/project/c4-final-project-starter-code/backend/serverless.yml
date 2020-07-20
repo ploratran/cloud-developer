@@ -55,7 +55,8 @@ functions:
       - Effect: Allow # permission to Query table
         Action:
           - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+        # Query from Index Table for fast
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_TABLE}
       - Effect: "Allow" # xray permissions (required) 
         Action:
           - "xray:PutTraceSegments"
@@ -211,24 +212,31 @@ resources:
         AttributeDefinitions:
           - AttributeName: userId # partition key
             AttributeType: S
-          - AttributeName: createdAt
+          - AttributeName: createdAt # index key
             AttributeType: S
           - AttributeName: todoId # sort key
             AttributeType: S
         KeySchema:
           # 1:M (One user -> Many todos)
-          - AttributeName: userId # partition key
-            KeyType: HASH
-          - AttributeName: todoId # sort key
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST # edge region
+          - AttributeName: userId 
+            KeyType: HASH # partition key
+          - AttributeName: todoId 
+            KeyType: RANGE # sort key
+        BillingMode: PAY_PER_REQUEST # On-demand Capacity Mode
         TableName: ${self:provider.environment.TODOS_TABLE}
+
+        # Use Local Secondary Index instead of Gloal because:
+        # 1) Acts like an additional sort key => sort items by a different attribute
+        # => sort table with "createdAt" attribute in this case
+        # 2) Partition key must be the same with base table (TODOS_TABLE) => same userId as partition key in this case
+        # 3) Query with specified/single partition => Cannot use .scan() to query entire table
+        # 4) Only define at table creation time => GSI will create new table
         LocalSecondaryIndexes:
           - IndexName: ${self:provider.environment.INDEX_TABLE}
             KeySchema:
               - AttributeName: userId
-                KeyType: HASH
+                KeyType: HASH # partition key
               - AttributeName: createdAt
-                KeyType: RANGE
+                KeyType: RANGE # sort key
             Projection:
-              ProjectionType: ALL # What attributes will be copied to an index
+              ProjectionType: ALL # copy all Attributes into the Local Secondary Indexes
