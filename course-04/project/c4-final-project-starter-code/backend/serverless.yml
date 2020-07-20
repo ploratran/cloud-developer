@@ -124,6 +124,7 @@ functions:
             description: Update a new todo
             requestModels: 
               'application/json': UpdateRequest
+              
 
   # TODO: Configure this function
   DeleteTodo:
@@ -131,7 +132,7 @@ functions:
     iamRoleStatements:
       - Effect: "Allow"
         Action: 
-          - dynamodb:DeleteItem
+          - dynamodb:DeleteItem # allow to delete single item in table
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
       - Effect: "Allow" # xray permissions (required) 
         Action:
@@ -143,6 +144,12 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+          cors: true
+          authorizer: RS256Auth
+          reqValidatorName: RequestBodyValidator
+          documentation: 
+            summary: delete an item in the table
+            description: delete an item
 
   # TODO: Configure this function
   GenerateUploadUrl:
