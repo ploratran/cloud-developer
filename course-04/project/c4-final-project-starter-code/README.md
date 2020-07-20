@@ -6,6 +6,15 @@ To implement this project, you need to implement a simple TODO application using
 
 This application will allow creating/removing/updating/fetching TODO items. Each TODO item can optionally have an attachment image. Each user only has access to TODO items that he/she has created.
 
+## Endpoints: 
+| **Method** | **endpoint**                                                                         |
+| ---------- | ----------------------------------------------------------------------------------   |
+| **GET**    | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
+| **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
+| **UPDATE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
+| **DELETE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
+| **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}/attachment |
+
 # TODO items
 
 The application should store TODO items, and each TODO item contains the following fields:
@@ -279,11 +288,3 @@ Provide variables for the collection (similarly to how this was done in the cour
 ![Alt text](images/import-collection-5.png?raw=true "Image 5")
 
 
-## Endpoints: 
-| **Method** | **endpoint**                                                                         |
-| ---------- | ----------------------------------------------------------------------------------   |
-| **GET**    | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
-| **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
-| **UPDATE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
-| **DELETE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
-| **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}/attachment |
