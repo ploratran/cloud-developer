@@ -124,7 +124,7 @@ functions:
             description: Update a new todo
             requestModels: 
               'application/json': UpdateRequest
-              
+
 
   # TODO: Configure this function
   DeleteTodo:
@@ -154,6 +154,18 @@ functions:
   # TODO: Configure this function
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action: # allow to perform Put and Get s3 url
+          - s3:PutObject
+          - s3:GetObject
+        Resource: arn:aws:s3:::${self:provider.environment.TODOS_S3_BUCKET}/*
+      - Effect: "Allow" # xray permissions (required) 
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
     events:
       - http:
           method: post
