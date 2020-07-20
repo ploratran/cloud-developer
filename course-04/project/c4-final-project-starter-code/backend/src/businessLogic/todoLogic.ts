@@ -4,6 +4,7 @@ import { createLogger } from '../utils/logger'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { TodoItem } from '../models/TodoItem'
 import { parseUserId } from '../auth/utils' // get userId from jwt token
+import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 
 const logger = createLogger('auth')
 
@@ -16,7 +17,6 @@ export async function getTodoList(jwtToken: string): Promise<TodoItem[]> {
     const userId = parseUserId(jwtToken); 
     return todoLayer.getTodos(userId);
 }
-
 
 // create todo with corresponding userId: 
 export async function createTodo(
@@ -38,4 +38,13 @@ export async function createTodo(
         done: false,
         ...newTodo, // name and dueDate
     }) as TodoItem
+}
+
+// update todo Item with userId and todoId: 
+export async function updateTodoItem(
+    jwtToken: string, 
+    todoId: string,
+    updateTodoItem: UpdateTodoRequest,
+) {
+    await todoLayer.updateTodo(parseUserId(jwtToken), todoId, updateTodoItem);
 }

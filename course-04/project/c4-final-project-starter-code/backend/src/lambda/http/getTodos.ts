@@ -3,7 +3,7 @@ import { createLogger } from '../../utils/logger'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 import { getTodoList } from '../../businessLogic/todoLogic'
 
-const logger = createLogger('auth');
+const logger = createLogger('Get Todo');
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   // TODO: Get all TODO items for a current user
@@ -17,6 +17,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     // pass in jwtToken to getTodoList
     // so todolist fetch will be based on userId
     const todoList = await getTodoList(jwtToken); 
+
+    logger.info(`List of item: ${todoList}`);
 
     return {
         statusCode: 200, 

@@ -2,6 +2,7 @@ import * as AWS from 'aws-sdk'
 import * as AWSXRay from 'aws-xray-sdk' // use AWS X-Ray SDK
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { TodoItem } from '../models/TodoItem'
+import { TodoUpdate } from '../models/TodoUpdate'
 import { createLogger } from '../utils/logger'
 
 const XAWS = AWSXRay.captureAWS(AWS) // debug tool for distributed tracing
@@ -37,7 +38,8 @@ export class TodoLayer {
         return todos as TodoItem[]
     }
     
-    // insert new item into Todos talbe: 
+    // insert new item into Todos talbe:
+    // match with TodoItem model:  
     async createTodo(todo: TodoItem): Promise<TodoItem> {
         logger.info(`Save new ${todo.name} into ${this.todosTable}`)
 
@@ -47,5 +49,32 @@ export class TodoLayer {
         }).promise()
 
         return todo as TodoItem
+    }
+
+    // update todo item based on userId and todoId with properties:
+    // name, dueDate, done (TodoUpdate model)
+    async updateTodo(userId: string, todoId: string, todoItem: TodoUpdate) {
+        logger.info(`Update todo with name ${todoItem.name} of user ${userId}`);
+
+        await this.docClient.update({
+            TableName: this.todosTable, 
+            // Update with key: 
+            Key: {
+                userId, 
+                todoId, 
+            }, 
+            UpdateExpression: 
+                'set #name = :name, #dueDate = :dueDate, #done = :done',
+            ExpressionAttributeValues: {
+                ':name': todoItem.name,
+                ':dueDate': todoItem.dueDate, 
+                ':done': todoItem.done
+            }, 
+            ExpressionAttributeNames: {
+                '#name': 'name', 
+                '#dueDate': 'dueDate', 
+                '#done': 'done'
+            }
+        }).promise()
     }
 }
