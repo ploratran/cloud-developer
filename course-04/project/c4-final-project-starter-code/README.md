@@ -169,7 +169,6 @@ logger.info('User was authorized', {
 })
 ```
 
-
 # Grading the submission
 
 Once you have finished developing your application, please set `apiId` and Auth0 parameters in the `config.ts` file in the `client` folder. A reviewer would start the React development server to run the frontend that should be configured to interact with your serverless application.
@@ -278,3 +277,13 @@ Right click on the imported collection to set variables for the collection:
 Provide variables for the collection (similarly to how this was done in the course):
 
 ![Alt text](images/import-collection-5.png?raw=true "Image 5")
+
+
+## Endpoints: 
+| **Method** | **endpoint**                                                                         |
+| ---------- | :----------------------------------------------------------------------------------: |
+| **GET**    | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
+| **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
+| **UPDATE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
+| **DELETE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
+| **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}/attachment |
