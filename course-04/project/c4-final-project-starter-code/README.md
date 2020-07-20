@@ -281,7 +281,7 @@ Provide variables for the collection (similarly to how this was done in the cour
 
 ## Endpoints: 
 | **Method** | **endpoint**                                                                         |
-| ---------- | :----------------------------------------------------------------------------------: |
+| ---------- | ----------------------------------------------------------------------------------   |
 | **GET**    | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
 | **POST**   | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos                     |
 | **UPDATE** | https://pl9bzk63g4.execute-api.us-east-2.amazonaws.com/dev/todos/{todoId}            |
