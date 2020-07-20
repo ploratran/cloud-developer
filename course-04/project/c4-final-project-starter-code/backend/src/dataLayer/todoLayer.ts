@@ -25,7 +25,7 @@ export class TodoLayer {
 
         // use query() instead of scan(): 
         const result = await this.docClient.query({
-            TableName: this.todosTable,
+            TableName: this.todosTable, // name of base table
             IndexName: this.indexTable, // query from Index table for faster retrival
             KeyConditionExpression: 'userId = :userId', 
             ExpressionAttributeValues: { ':userId': userId },
