@@ -1,13 +1,13 @@
 import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { createLogger } from '../../utils/logger'
-import * as AWS from 'aws-sdk'
-import * as XRAWS from 'aws-xray-sdk'
+import * as AWS  from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 
 const logger = createLogger('Generate URL');
-const XAWS = XRAWS.captureAWS(AWS); 
+const XAWS = AWSXRay.captureAWS(AWS) 
 
 logger.info('Upload Image')
 
