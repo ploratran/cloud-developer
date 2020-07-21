@@ -11,5 +11,8 @@ content for Udacity's cloud developer nanodegree
 5. Authentication with Auth0, OAuth
 6. Best Practices - Express with AWS Lambda
 
-## Exercise Demo: 
+### Exercise Demo: 
 ![](course-04/exercises/demo/Demo.gif)
+
+### Project 5 Demo: 
+![](course-04/exercises/demo/Demo1.gif)
