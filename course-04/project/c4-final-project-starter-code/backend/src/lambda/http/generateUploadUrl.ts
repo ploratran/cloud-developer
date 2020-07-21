@@ -1,21 +1,26 @@
 import 'source-map-support/register'
-import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { createLogger } from '../../utils/logger'
 import * as AWS from 'aws-sdk'
+import * as XRAWS from 'aws-xray-sdk'
+import * as middy from 'middy'
+import { cors } from 'middy/middlewares'
 
 const logger = createLogger('Generate URL');
+const XAWS = XRAWS.captureAWS(AWS); 
 
 logger.info('Upload Image')
 
 // instantiate s3 from AWS-SDK: 
-const s3 = new AWS.S3({
+const s3 = new XAWS.S3({
     signatureVersion: 'v4'
 })
 
 const s3bucket = process.env.TODOS_S3_BUCKET;
 const s3expiredTime = process.env.SIGNED_URL_EXPIRATION;
 
-export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const handler = middy(
+    async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
     // get todoId from event's path parameter: 
     const todoId = event.pathParameters.todoId
@@ -35,7 +40,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
             uploadUrl: url, 
         })
     }
-}
+});
+
+handler.use(
+    cors({ credentials: true})
+)
+
 
 // get S3 pre-signed url of a todo item based on todoId: 
 const getUploadUrl = (todoId: string) => {
