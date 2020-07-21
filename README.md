@@ -1,9 +1,20 @@
 # cloud-developer
 content for Udacity's cloud developer nanodegree
 
-# Course 4: Serverless
+# Course 2: Full Stack Apps on AWS
+1. Monolith vs Microservice App
+2. Data Storage in Cloud Intro: S3
+3. Deploy Server to Cloud: Elastic Beanstalk, RDS Database
+4. Auth with bcrypt and JWT
 
-## Topics covered: 
+# Course 3: Refactor Monolith to Microservices App on AWS
+1. Microservices Intro
+2. Docker for Container
+3. Continuous Integration with Travis Build
+4. Continuous Deployment with Kubernetes Orchestration
+5. Best Practice: Nginx, Scaling and Self-Healing
+
+# Course 4: Serverless
 1. Serverless 
 2. REST API in Serverless
 3. Serverless Framework
@@ -14,5 +25,5 @@ content for Udacity's cloud developer nanodegree
 ### Exercise Demo: 
 ![](course-04/exercises/demo/Demo.gif)
 
-### Project 5 Demo: 
+### Course 4 Demo: 
 ![](course-04/exercises/demo/Demo1.gif)
