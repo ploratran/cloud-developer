@@ -5,6 +5,8 @@ import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { TodoItem } from '../models/TodoItem'
 import { parseUserId } from '../auth/utils' // get userId from jwt token
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import * as middy from 'middy'
+import { cors } from 'middy/middlewares'
 
 const logger = createLogger('auth')
 

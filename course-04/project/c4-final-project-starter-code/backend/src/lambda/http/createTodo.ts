@@ -1,12 +1,15 @@
 import 'source-map-support/register'
-import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 import { createTodo } from '../../businessLogic/todoLogic'
 import { createLogger } from '../../utils/logger'
+import * as middy from 'middy'
+import { cors } from 'middy/middlewares'
 
 const logger = createLogger('Create Todo');
 
-export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const handler = middy(
+    async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     console.log('Processing events: ', event); 
 
     // create a single todo item with name and due date properties:
@@ -23,12 +26,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
     return {
         statusCode: 201, 
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': true
-        },
         body: JSON.stringify({
             item: newItem,
         })
     }
-}
+});
+
+handler.use(
+    cors({ credentials: true})
+)
