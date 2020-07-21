@@ -4,12 +4,16 @@ content for Udacity's cloud developer nanodegree
 # Table of Contents:
 - [General info](#general-info)
 - [Technologies](#technologies)
-- [Course Materials](#courses)
+- [Course Materials](#course-materials)
 
-### General info
+---
+
+## General info
 This repository contains materials from Udacity Cloud Developer Nanodegree
 
-### Technologies
+---
+
+## Technologies
 * AWS SDK
 * CI/CD, Docker, Travis, Kubernetes
 * Elastic Beanstalk
@@ -17,7 +21,9 @@ This repository contains materials from Udacity Cloud Developer Nanodegree
 * Serverless Framework
 * AWS IAM Policies and Permission
 
-### Course Materials
+---
+
+## Course Materials
 
 **Course 2: Full Stack Apps on AWS**
 1. Monolith vs Microservice App
